@@ -1,0 +1,468 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Martmes Ltd - Your Source for Automobiles, Real Estate, Rentage, and More{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var headerNavbar = document.getElementById('header-navbar');
+    var threshold = 50; // Adjust this value as needed
+  
+    function updateNavbarBackground() {
+      if (window.scrollY <= threshold) {
+        headerNavbar.classList.remove('header-style-3');
+        headerNavbar.classList.add('transparent-navbar');
+        
+      } else {
+        headerNavbar.classList.remove('transparent-navbar');
+        headerNavbar.classList.add('header-style-3');
+      }
+    }
+  
+    updateNavbarBackground();
+  
+    window.addEventListener('scroll', function() {
+      updateNavbarBackground();
+    });
+  });
+  
+</script>
+    <main class="main">
+      <div class="box-home3-style">
+        <section class="section banner-homepage1">
+          <div class="box-swiper">
+            <div class="swiper-container swiper-banner pb-0">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/car-vushh.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium text-white  mb-10" >Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Automobile<br class="d-block">Dealership</h2>
+                    <p class="fonticon-20 mb-30 text-white">Get an automobile on Martmes<br> without breaking the bank.</p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/automobiles">View Collection</a></div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/header-estate-1.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium text-white mb-10">Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Real<br class="d-block">Estate</h2>
+                    <p class="fonticon-20 mb-30 text-white">Buy or rent a house on Martmes<br> that you would love.</p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/real-estate">View Collection</a></div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/josue-isai-ramos-figueroa-qvBYnMuNJ9A-unsplash-1.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium text-white mb-10">Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Building &<br class="d-block">Constructions</h2>
+                    <p class="fonticon-20 mb-30 text-white">Join hundreds of clients who trust Martmes<br> with their Constructions. </p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/building-constructions">View Collection</a></div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/andrea-davis-VOWXF7lsAN0-unsplash.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium text-white mb-10">Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Household<br class="d-block">Furnitures</h2>
+                    <p class="fonticon-20 mb-30 text-white">Crafting comfort and style with our<br> signature furniture designs.</p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/household-furnitures">View Collection</a></div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/mark-kats-8RkIKcAaPdc-unsplash.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium text-white mb-10">Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Household<br class="d-block">Fittings</h2>
+                    <p class="fonticon-20 mb-30 text-white">Perfecting every detail, our fittings<br> define durability & elegance.</p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/household-fittings">View Collection</a></div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="box-cover-image wow fadeInUp" id="blur" style="background-image:url(static/assets/imgs/stock/naveen-naidu-kpFClmPZdYQ-unsplash.jpg)"></div>
+                  <div class="box-banner-info">
+                    <p class="overline-t2-medium color-yellow-custom mb-10 text-white">Martmes Resources Ltd</p>
+                    <h2 class="heading-title-medium text-white mb-30">Building<br class="d-block">Materials</h2>
+                    <p class="fonticon-20 mb-30 text-white">Building a better future<br> with quality materials.</p>
+                    <div class="text-center"><a class="btn btn-black" href="/categories/building-materials">View Collection</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-pagination-button">
+                <div class="swiper-pagination swiper-pagination-banner"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section block-icon-box" style="margin-top: 80px;"> 
+          <div class="container"> 
+            <div class="text-center"> 
+              <h1 class="mb-20 wow fw-semibold flash" id="reduceText">We specialize on Automobiles, Real Estate,<br>Furniture, Fittings & Building Materials</h1>
+              <p class="overline-t2-medium text-primary text-center mb-55">Our Benefits</p>
+            </div>
+            
+            <div class="row"> 
+              
+              <div class="col-lg-4 hasborder"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img width="70" height="70" src="https://img.icons8.com/3d-fluency/94/handshake--v1.png" alt="handshake--v1"/></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">Reliability</h6>
+                    <p class="body-p2">Consistently dependable across automobiles, real estate, and more</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 hasborder"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img width="70" height="70" src="https://img.icons8.com/3d-fluency/94/best-seller.png" alt="best-seller"/></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">Quality</h6>
+                    <p class="body-p2">Setting the standard for excellence in every aspect we offer</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img width="70" height="70" class="mb-4" src="https://img.icons8.com/3d-fluency/94/thumb-up--v1.png" alt="thumb-up--v1"/><div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">Convenience</h6>
+                    <p class="body-p2">Streamlining accessibility for all your automotive, real estate needs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section box-category-type-2">
+          <div class="container"> 
+            <div class="row"> 
+              <div class="text-center"> 
+                <h1 class="mb-55 mt-20 wow fw-semibold fs-1 fadeInUp underline" >Automobiles</h1>
+              </div>
+              {% for p in automobiles %}
+              <div class="col-lg-3 col-md-4 col-sm-6 "> 
+                <div class="cardProduct wow fadeInUp">
+                  <div class="cardImage rounded-3"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover" src="{{p.image2.url}}" alt="{{p.title}}"></a>
+                    
+                    
+                    <div class="box-quick-button">
+                      {% if request.user.is_authenticated %}
+                      {% if p.in_wishlist %}
+                        <a class="btn btn-wishlist" style="cursor: pointer;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </a>
+                      {% else %}
+                      <a class="btn btn-get-wishlist"  data-product-item="{{ p.id }}" style="cursor: pointer;">
+                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_116_452)">
+                            <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                          </g>
+                          <defs>
+                            <clippath id="clip0_116_452">
+                              <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                            </clippath>
+                          </defs>
+                        </svg>
+                      </a>
+                      {% endif %}
+                      {% else %}
+                      <a class="btn account account-icon account" style="cursor: pointer;">
+                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_116_452)">
+                            <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                          </g>
+                          <defs>
+                            <clippath id="clip0_116_452">
+                              <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                            </clippath>
+                          </defs>
+                        </svg>
+                      </a>
+                      
+                      {% endif %}
+                      <a class="btn preview-product" href="#">
+                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_91_73)">
+                            <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                          </g>
+                          <defs>
+                            <clippath id="clip0_91_73">
+                              <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                            </clippath>
+                          </defs>
+                        </svg></a>
+                    </div>
+                  </div>
+                  <div class="cardInfo"><a href="{% url "core:listing-detail" p.pid %}">
+                      <h6 class="text-16-medium cardTitle">{{p.title}}</h6>
+                    <p class="body-p2 cardDesc fw-600 font-sofia" style="margin-top: -7px;">{{p.specifications|truncatechars:"25"}}</p>
+                    <p class=" cardTitle" style="margin-top: -7px;">₦{{p.price|floatformat:0|intcomma}}</p></a>
+                    
+          
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              <div class="text-center"> 
+                <h1 class="mb-45 mt-20 wow fw-semibold fs-1 fadeInUp underline">Real Estate</h1>
+              </div>
+              {% for r in real_estate %}
+              <div class="col-lg-6">
+                <div class="cardCategory wow fadeInUp rounded-2" >
+                  <div class="cardImage" ><a href="{% url "core:listing-detail" r.pid %}"><img height="800" class="rounded-2" src="{{r.image.url}}" alt="{{r.title|title}}"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle" style="margin-bottom: 3px;">{{r.title|title}}</h6>
+                    <p class="body-p2 cardDesc fw-600 font-sofia" style="margin-bottom: 8px;">{{r.specifications|truncatechars:"25"}}</p>
+                    <h5 class=" cardTitle">₦{{r.price|floatformat:0|intcomma}}</h5></a>
+                    <a class="" ><i class="fas fa-bed"></i> {{r.house.num_bedrooms}} Bedrooms</a>
+                    <a class="" ><i class="fas fa-bath"></i> {{r.house.num_bathrooms}} Bathrooms</a>
+                    <a class="" ><i class="fas fa-toilet"></i> {{r.house.num_toilets}} Toilets</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+              <div class="text-center"> 
+                <h1 class="mb-45 mt-20 wow fw-semibold fs-1 fadeInUp underline">Household</h1>
+              </div>
+              {% for r in rentage %}
+              <div class="col-lg-4 card-style-small">
+                <div class="cardCategory wow fadeInUp rounded-2">
+                  <div class="cardImage ">
+                    <a href="{% url "core:listing-detail" r.pid %}"><img height="800" src="{{r.image.url}}" class="rounded-2" alt="{{r.title}} image"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">{{r.title|title}}</h6>
+                    <h5 class=" cardTitle">₦{{r.price|floatformat:0|intcomma}}</h5>
+                
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% for f in furniture %}
+              <div class="col-lg-4 card-style-small">
+                <div class="cardCategory wow fadeInUp rounded-2">
+                  <div class="cardImage "><a href="{% url "core:listing-detail" f.pid %}"><img height="800"  src="{{f.image.url}}" class="rounded-2" alt="{{f.title}} image"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">{{f.title|title}}</h6>
+                    <h5 class=" cardTitle">₦{{f.price|floatformat:0|intcomma}}</h5>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% for f in fittings %}
+              <div class="col-lg-4 card-style-small">
+                <div class="cardCategory wow fadeInUp rounded-2">
+                  <div class="cardImage "><a href="{% url "core:listing-detail" f.pid %}"><img height="800" src="{{f.image.url}}" class="rounded-2" alt="{{f.title}} image"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">{{f.title|title}}</h6>
+                    <h5 class=" cardTitle">₦{{f.price|floatformat:0|intcomma}}</h5>
+
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+         
+              <div class="text-center "> 
+                <h1 class="mb-45 mt-20 wow fw-semibold fs-1 fadeInUp underline">Buildings</h1>
+              </div>
+              {% for c in constructions %}
+              <div class="col-lg-6">
+                <div class="cardCategory wow fadeInUp rounded-2">
+                  <div class="cardImage"><a href="{% url "core:listing-detail" c.pid %}"><img class="rounded-2" src="{{c.image.url}}" alt="{{c.title}}"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">Construtions</h6>
+                    <h5 class=" cardTitle">₦{{c.price|floatformat:0|intcomma}}</h5>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% for m in materials %}
+              <div class="col-lg-6">
+                <div class="cardCategory wow fadeInUp rounded-2">
+                  <div class="cardImage"><a href="{% url "core:listing-detail" m.pid %}"><img class="rounded-2" src="{{m.image.url}}" alt="{{m.title}}"></a></div>
+                  <div class="cardInfo">
+                    <h6 class="cardTitle">Materials</h6>
+                    <h5 class=" cardTitle">₦{{m.price|floatformat:0|intcomma}}</h5>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              
+            </div>
+          </div>
+        </section>
+        <section class="section box-new-in">
+          <div class="container"> 
+            <div class="text-center"> 
+              <h3 class="wow zoomIn">Our Services</h3>
+            </div>
+            <div class="box-tabs box-tabs-left wow fadeInRight"> 
+              <ul class="nav nav-tabs nav-tabs-medium" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="mens-tab" data-bs-toggle="tab" data-bs-target="#mens" type="button" role="tab" aria-controls="mens" aria-selected="true" data-index="1" data-items="4" style="display: none;"></button>
+                </li>
+
+              </ul>
+            </div>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="mens" role="tabpanel" aria-labelledby="mens-tab">
+                <div class="box-swiper"> 
+                  <div class="box-page-swiper">
+                    <div class="swiper-button-prev swiper-button-prev-tab-1 btn-prev-style-1"></div>
+                    <div class="swiper-button-next swiper-button-next-tab-1 btn-next-style-1"></div>
+                  </div>
+                  <div class="swiper-container swiper-tab-1 pb-0">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.0|slugify}}"><img src="{% static 'assets/imgs/stock/488b83b4-0757-4718-bb7e-11ed4b4c83f9.jpg' %}" class="rounded-2" alt="guza"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.0|slugify}}">
+                              <h6>Automobile Dealership</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.1|slugify}}"><img src="{% static 'assets/imgs/stock/77472b09-feea-4c21-b734-e1e4379f96e8.jpg' %}" class="rounded-2" alt="{{categories.1}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.1|slugify}}">
+                              <h6>Real Estate</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.2|slugify}}"><img src="{% static 'assets/imgs/stock/vduhvakjvovdi.jpeg' %}" class="rounded-2" alt="{{categories.2}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.2|slugify}}">
+                              <h6>Building & Constructions</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.3|slugify}}"><img src="{% static 'assets/imgs/stock/a8a74853-aaff-4b30-8fa9-0928b1dbad3f.jpg' %}" class="rounded-2" alt="{{categories.3}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.3|slugify}}">
+                              <h6>Household Furniture</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.4|slugify}}"><img src="{% static 'assets/imgs/stock/dbrgwriufg8uey.jpeg' %}" class="rounded-2" alt="{{categories.4}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.4|slugify}}">
+                              <h6>Household Fittings</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.5|slugify}}"><img src="{% static 'assets/imgs/stock/ugfbeh8rhg842-1.jpg' %}" class="rounded-2" alt="{{categories.5}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.5|slugify}}">
+                              <h6>Building Materials</h6></a></div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="cardCollectionStyle1 wow fadeInUp">
+                          <div class="cardImage"><a href="/categories/{{categories.6|slugify}}"><img src="{% static 'assets/imgs/stock/d1e4e302-4c49-42c8-be0a-5df2a2fca566.jpg' %}" class="rounded-2" alt="{{categories.6}}"></a></div>
+                          <div class="cardInfo"><a href="/categories/{{categories.6|slugify}}">
+                              <h6>Rentage</h6></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </section>
+        
+        <div class="section block-testimonials block-testimonials-3" style="background: #f9f9f9;">
+          <div class="container"> 
+            <div class="box-slide-customers wow fadeInUp">
+              <div class="box-swiper"> 
+                <div class="swiper-container swiper-banner">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <p class="text-34 mb-30 font-jost" style="color: #000;">“ Martmesltd made buying our dream home a breeze. Thanks to them.”</p>
+                      <p class="text-17-medium name-customers" style="color: #000;">Sarah Adeyemi</p>
+                      <p class="body-p2" style="color: #000;"> Happy Homeowner.</p>
+                    </div>
+                    <div class="swiper-slide">
+                      <p class="text-34 mb-30 font-jost" style="color: #000;">“ Martmesltd went above and beyond to help me find the perfect car.”</p>
+                      <p class="text-17-medium name-customers"style="color: #000;"> Chukwudi Okoro</p>
+                      <p class="body-p2" style="color: #000;">Satisfied Customer.</p>
+                    </div>
+                    <div class="swiper-slide">
+                      <p class="text-34 mb-30 font-jost" style="color: #000;">“ Martmesltd has been our trusted partner for all our household needs, from rentals to building materials.”</p>
+                      <p class="text-17-medium name-customers" style="color: #000;">Ifeoma and Emeka Nwankwo</p>
+                      <p class="body-p2" style="color: #000;">Loyal Customers.</p>
+                    </div>
+                    <div class="swiper-slide">
+                      <p class="text-34 mb-30 font-jost" style="color: #000;">“ They made acquiring our household fittings very easy.”</p>
+                      <p class="text-17-medium name-customers" style="color: #000;">Blessing Adekunle</p>
+                      <p class="body-p2" style="color: #000;">Customer.</p>
+                    </div>
+                    <div class="swiper-slide">
+                      <p class="text-34 mb-30 font-jost" style="color: #000;">“ As a contractor, I rely on Martmesltd for all my building material needs”</p>
+                      <p class="text-17-medium name-customers" style="color: #000;">Oluwaseun Adeyem</p>
+                      <p class="body-p2" style="color: #000;">Contractor.</p>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="section block-icon-box" style="margin-top: 30px !important;"> 
+          <div class="container"> 
+            <div class="row"> 
+              <div class="col-md-4 hasborder"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img src="{% static 'assets/imgs/page/homepage3/ship.svg' %}" alt="fast and reliable"></div>
+                  <div class="cardInfo">
+                    <h5 class="cardTitle">Fast and Reliable</h5>
+                    <p class="body-p2">To stores and home</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 hasborder"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img src="{% static 'assets/imgs/page/homepage3/return.svg' %}" alt="Secure packaging"></div>
+                  <div class="cardInfo">
+                    <h5 class="cardTitle">Secure Packaging </h5>
+                    <p class="body-p2">60 - days free return policy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4"> 
+                <div class="cardIcon wow fadeInUp">
+                  <div class="cardImage"><img src="{% static 'assets/imgs/page/homepage3/payment.svg' %}" alt="secure payment"></div>
+                  <div class="cardInfo">
+                    <h5 class="cardTitle">Secure Payment</h5>
+                    <p class="body-p2">We accept all major credit cards</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section block-banner-video" > 
+          <div class="container" > 
+            <div class="box-text-banner-video">
+              <p class="text-16-medium color-white mb-15 wow fadeInLeft">Martmes Resource Ltd</p>
+              <h1 class="heading-title-medium color-white mb-15 wow fadeInRight">
+                <span class="ref_header tfx" style="opacity: 1; transform: matrix(1, 0, 0, 1, -140, 0);">Redefining</span><br>
+                <span class="ref_header tfx" style="opacity: 1; transform: matrix(1, 0, 0, 1, 70, 0);">Luxury</span><br>
+                <span class="ref_header tfx" style="opacity: 1; transform: matrix(1, 0, 0, 1, -70, 0);">Living</span><br>
+                
+              </h1>
+
+             
+              <a class="btn btn-white wow fadeInUp" href="{% url "core:categories" %}">Shop Now</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    {% endblock content %}

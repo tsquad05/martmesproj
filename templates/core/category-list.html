@@ -1,0 +1,23 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}All Categories - MartmesLtd{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+    <main class="main">
+      <section class="section block-content-lookbook">
+        <div class="list-lookbok">
+          {% for c in categories %}
+          <div class="item-lookbook">
+            <div class="item-lookbook-image"><img src="{{c.image.url}}" alt="Guza"></div>
+            <div class="item-lookbook-info">
+              <p class="text-24 color-white">{{c.title}}</p>
+              <div class="box-button-lookbook"><a class="btn btn-border-white" href="{% url "core:category-product-list" c.cid %}">Discover</a></div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </section>
+    </main>
+    {% endblock content %}

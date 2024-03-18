@@ -1,0 +1,257 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{category.title|capfirst}} - MartmesLtd{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+    <main class="main">
+      <section class="section block-banner-shop" style="background-image: url({{category.image.url}}); {% if category.title == "Building Constructions" or category.title == "Building Materials" or category.title == "Household Fittings" %}color: #fff;{% endif %}" > 
+        
+        <div class="container"> 
+          <h1 class="text-56-medium">{{category.title}}</h1>
+          <div class="breadcrumbs"> 
+            <ul> 
+              <li> <a href="/" style="{% if category.title == "Building Constructions" or category.title == "Building Materials" or category.title == "Household Fittings" %}color: #fff;{% endif %}">Home </a></li>
+              <li> <a href="{% url "core:categories" %}" style="{% if category.title == "Building Constructions" or category.title == "Building Materials" or category.title == "Household Fittings"%}color: #fff;{% endif %}">Categories</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section block-content-shop">
+        <div class="container">
+          <div class="box-shop-category-top">
+            <div class="box-swiper">
+              <div class="swiper-container swiper-6-items pb-0">
+                <div class="swiper-wrapper">
+                  {% for c in categories %}
+                  <div class="swiper-slide">
+                    <div class="cardCategorySmall cardCategorySmallStyle2 wow fadeInUp">
+                      <div class="cardImage rounded-2"><a  href="{% url "core:category-product-list" c.cid %}"><img class="rounded-2" src="{{c.image.url}}" alt="{{c.title}}"></a></div>
+                      <div class="cardInfo"><a href="#">
+                          <h4 class="cardTitle">{{c.title}}</h4></a></div>
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                </div>
+              </div>
+              <div class="box-pagination-button box-pagination-leftright">
+                <div class="swiper-pagination swiper-pagination-6"></div>
+                <div class="swiper-button-prev swiper-button-prev-6 btn-prev-style-1"></div>
+                <div class="swiper-button-next swiper-button-next-6 btn-next-style-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="box-filter-top"> 
+            <div class="show-sm show-lg"> <a class="btn-open-filter" href="#">Filter </a></div>
+            <div class="wrapper-overlay"></div>
+            <div class="box-filters box-filters-left"> <span class="body-p2 neutral-medium-dark">Filter by</span>
+              <div class="dropdown dropdown-sort">
+                <button class="btn dropdown-toggle" id="dropdownCat" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</button>
+                <div class="dropdown-menu dropdown-menu-light dropdown-menu-filter dropdown-menu-category" aria-labelledby="dropdownCat" style="margin: 0px;">
+                  <div class="box-dropdown-filter">
+                    <h6 class="head-filter">Categories</h6>
+                    <div class="box-collapse">
+                      <ul class="list-filter-checkbox"> 
+                        {% for c in categories %}
+                        <li> 
+                          <label class="cb-container">
+                            <input type="checkbox"><span class="text-small">{{c.title}}</span><span class="checkmark"></span>
+                          </label>
+                        </li>
+                        {% endfor %}
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dropdown dropdown-sort">
+                <button class="btn dropdown-toggle" id="dropdownRrice" type="button" data-bs-toggle="dropdown" aria-expanded="false">Price</button>
+                <div class="dropdown-menu dropdown-menu-light dropdown-menu-filter dropdown-menu-category" aria-labelledby="dropdownRrice" style="margin: 0px;">
+                  <div class="box-dropdown-filter">
+                    <h6 class="head-filter">Price </h6>
+                    <div class="box-collapse scrollFilter">
+                      <ul class="list-filter-checkbox"> 
+                        <li> 
+                          <label class="cb-container">
+                            <input type="checkbox"><span class="text-small">$10.00 - $49.00</span><span class="checkmark"></span>
+                          </label>
+                        </li>
+                        <li> 
+                          <label class="cb-container">
+                            <input type="checkbox"><span class="text-small">$50.00 - $99.00</span><span class="checkmark"></span>
+                          </label>
+                        </li>
+                        <li> 
+                          <label class="cb-container">
+                            <input type="checkbox"><span class="text-small">$100.00 - $199.00</span><span class="checkmark"></span>
+                          </label>
+                        </li>
+                        <li> 
+                          <label class="cb-container">
+                            <input type="checkbox"><span class="text-small">$200.00 +</span><span class="checkmark"></span>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box-sort"> 
+              
+              <form id="sort-form" method="GET" >
+                <div class="box-sortby d-flex align-items-center">
+                    <div class="dropdown dropdown-sort">
+                        <button class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">Default Sorting</button>
+                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort" style="margin: 0px;">
+                            <li><a class="dropdown-item" href="#" data-sort="default">Default Sorting</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="oldest">Oldest products</a></li>
+                            <li><a class="dropdown-item" href="#" data-sort="newest">Newest products</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+                        item.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            var sortOption = this.dataset.sort;
+                            console.log(sortOption);
+                            document.getElementById('sort-form').action = "{% url 'core:category-product-list' category.cid %}?sort_by=" + sortOption;
+                            document.getElementById('dropdownSort').innerText = this.innerText;
+                            document.getElementById('sort-form').submit();
+                        });
+                    });
+                });
+            </script>
+            
+          
+              <div class="box-view-style"> <a class="view-type view-2" href="#" data-col="2"></a><a class="view-type view-3 active" href="#" data-col="3"></a><a class="view-type view-4" href="#" data-col="4"></a><a class="view-type view-5" href="#" data-col="5"></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper-overlay"></div>
+        <div class="block-filter-middle block-filter-canvas wrapper-popup">
+          <div class="container">
+            <div class="box-filters-sidebar"> 
+              <h5 class="title-filter">Filter</h5>
+              <div class="block-filter"> 
+                <h6 class="item-collapse">Categories</h6>
+                <div class="box-collapse scrollFilter">
+                  <ul class="list-filter-checkbox"> 
+                    {% for c in categories %}
+                    <li> 
+                      <label class="cb-container">
+                        <input type="checkbox"><span class="text-small">{{c.title}}</span><span class="checkmark"></span>
+                      </label>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="block-filter"> 
+                <h6 class="item-collapse">Price </h6>
+                <div class="box-collapse scrollFilter">
+                  <ul class="list-filter-checkbox"> 
+                    <li> 
+                      <label class="cb-container">
+                        <input type="checkbox"><span class="text-small">$10.00 - $49.00</span><span class="checkmark"></span>
+                      </label>
+                    </li>
+                    <li> 
+                      <label class="cb-container">
+                        <input type="checkbox"><span class="text-small">$50.00 - $99.00</span><span class="checkmark"></span>
+                      </label>
+                    </li>
+                    <li> 
+                      <label class="cb-container">
+                        <input type="checkbox"><span class="text-small">$100.00 - $199.00</span><span class="checkmark"></span>
+                      </label>
+                    </li>
+                    <li> 
+                      <label class="cb-container">
+                        <input type="checkbox"><span class="text-small">$200.00 +</span><span class="checkmark"></span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="box-your-filter box-your-filter-shop2">
+            <div class="block-text-filter"><span class="body-p2 neutral-medium-dark">Filter</span></div>
+            <div class="block-ele-filter"><a class="btn btn-tag-filter" href="#">XS<span class="close-tag"></span></a><a class="btn btn-tag-filter" href="#">Women<span class="close-tag"></span></a><a class="clear-filter link-underline" href="#">Clear All</a></div>
+          </div>
+          <div class="box-list-products box-list-products-4 box-list-products-shop-2">
+            {% for p in products %}
+            <div class="product-item">
+              <div class="cardProduct wow fadeInUp rounded-2">
+                <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover rounded-2" src="{{p.image2.url}}" alt="{{p.title}}"></a>
+                       
+                  <div class="box-quick-button">
+                    {% if request.user.is_authenticated %}
+                    {% if p.in_wishlist %}
+                      <a class="btn btn-wishlist" style="cursor: pointer;">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                      </a>
+                    {% else %}
+                    <a class="btn btn-get-wishlist"  data-product-item="{{ p.id }}" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <a class="btn account account-icon account" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+                    
+                    {% endif %}
+                  
+                  </div>
+                </div>
+                <div class="cardInfo"><a href="{% url "core:listing-detail" p.pid %}">
+                    <h6 class="text-16-medium cardTitle">{{p.title}}</h6></a>
+                    {% if p.category.title == "Real Estate" or p.category.title == "Rentage"  %}
+                    <a class="" style="font-weight: 400; margin-right: 3px;"><i class="fas fa-bed"></i> {{p.house.num_bedrooms}}</a>
+                    <a class="" style="font-weight: 400;  margin-right: 3px;"><i class="fas fa-bath"></i> {{p.house.num_bathrooms}} </a>
+                    <a class="" style="font-weight: 400;"><i class="fas fa-toilet" style="margin-bottom: 10px;"></i> {{p.house.num_toilets}} </a>
+                    {% endif %}
+                  <p class="body-p2 cardDesc">₦{{p.price|floatformat:0|intcomma}}</p>
+                 
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </section>
+    </main>
+  {% endblock content %}

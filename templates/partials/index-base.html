@@ -1,0 +1,513 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="msapplication-TileColor" content="#0E0E0E">
+    <meta name="template-color" content="#0E0E0E">
+    <meta name="description" content="Index page">
+    <meta name="keywords" content="index, page">
+    <meta name="author" content="">
+    <meta name="keywords" content="automobiles, real estate, rentage, building materials, furniture, household fittings, Martmes Ltd">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <title>{% block title %}{% endblock title %}</title>
+    
+    <!-- Canonical Tag -->
+   {% block canonical %}<link rel="canonical" href="https://www.martmesltd.com/">{% endblock canonical %} 
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Martmes Ltd - Your Source for Automobiles, Real Estate, Rentage, and More">
+    <meta property="og:description" content="Explore a wide range of automobiles, real estate properties, rentage services, building materials, furniture, and household fittings at Martmes Ltd.">
+    <meta property="og:image" content="https://www.martmesltd.com/static/assets/imgs/martmes-logo-removebg-preview-2.png">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@martmesltd">
+    <meta name="twitter:title" content="Martmes Ltd - Your Source for Automobiles, Real Estate, Rentage, and More">
+    <meta name="twitter:description" content="Explore a wide range of products and services related to automobiles, real estate, rentage, building materials, furniture, and household fittings at Martmes Ltd.">
+    <meta name="twitter:image" content="https://www.martmesltd.com/images/logo.png">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/imgs/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "assets/imgs/apple-touch-icon.png" %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static "assets/imgs/favicon-32x32.png" %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static "assets/imgs/favicon-16x16.png" %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "assets/imgs/favicon.ico" %}">
+    <link href="{% static "assets/css/stylee209.css" %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/shoelace-autoloader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+  </head>
+  <body>
+    <div id="preloader-active">
+      <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+          <div class="page-loading">
+            <div class="page-loading-inner">
+              <div class="scaling-dots">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header class="header sticky-bar header-style-3" id="header-navbar">
+      <div class="container">
+        <div class="main-header">
+          <div class="header-logo"> 
+            <a class='d-flex' href='/'>
+              <img alt="luxride" src="{% static 'assets/imgs/martmes-logo-removebg-preview.png' %}"  id="big-hidden" height="90">
+              <img alt="luxride" src="{% static 'assets/imgs/martmes-logo-removebg-preview-2.png' %}" height="50"  id="small-hidden" height="90">
+            </a>
+          </div>
+          <div class="header-menu"> 
+            <div class="header-nav">
+              <nav class="nav-main-menu d-none d-xl-block">
+                <ul class="main-menu">
+                  <li class="has-mega-menu"><a class="active" href="/" style="font-weight: 500;">Home</a>
+                   
+                  </li>
+              
+                  <li class="has-children"><a href="#"  class="fw-medium">Categories</a>
+                    <ul class="sub-menu rounded-sub-menu sub-menu-enlarged">
+                      {% for c in categories %}
+                      <li><a href='{% url "core:category-product-list" c.cid %}'>{{c.title}}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  <li class="has-children"><a href="#"  class="fw-medium">Discover</a>
+                    <ul class="sub-menu rounded-sub-menu sub-menu-enlarged">
+                
+                      <li><a href='{% url "core:about"  %}'>About Us</a></li>
+                      <li><a href='{% url "core:faq"  %}'>FAQs</a></li>
+                      <li><a href='{% url "core:categories"  %}'>All Categories</a></li>
+                      
+                    </ul>
+                  </li>
+              
+               
+                  <li><a href='{% url "core:contact" %}'  class="fw-medium">Contact</a></li>
+          
+                </ul>
+              </nav>
+              <div class="burger-icon burger-icon-white" id="custom-margin"><span class="burger-icon-top"></span><span class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
+            </div>
+          </div>
+          <div class="header-account">
+            <a class="account-icon search" href="#">
+              <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_91_73)">
+                  <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"></path>
+                </g>
+                <defs>
+                  <clippath id="clip0_91_73">
+                    <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                  </clippath>
+                </defs>
+              </svg>
+            </a>
+
+            <a class="account-icon " href="tel:+1234567890" >
+              <svg width="24" height="24" viewBox="0 0 24 24" class="d-inline-flex align-items-center justify-content-center" fill="none" xmlns="http://www.w3.org/2000/svg">
+                
+                  <path d="M3.51089 2L7.15002 2.13169C7.91653 2.15942 8.59676 2.64346 8.89053 3.3702L9.96656 6.03213C10.217 6.65159 10.1496 7.35837 9.78693 7.91634L8.40831 10.0375C9.22454 11.2096 11.4447 13.9558 13.7955 15.5633L15.5484 14.4845C15.9939 14.2103 16.5273 14.1289 17.0314 14.2581L20.5161 15.1517C21.4429 15.3894 22.0674 16.2782 21.9942 17.2552L21.7705 20.2385C21.6919 21.2854 20.8351 22.1069 19.818 21.9887C6.39245 20.4276 -1.48056 1.99997 3.51089 2Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+                <defs>
+                  <clippath id="clip0_116_451">
+                    <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                  </clippath>
+                </defs>
+              </svg>
+            </a>
+            {% if request.user.is_authenticated %}
+            <li class="d-none d-md-inline-block ms-3 dropdown" id="barbify-dropdown-icon">
+              <a href="dashboard/add-property.html" class=" "  href="#" role="button" data-bs-toggle="dropdown"
+                data-bs-auto-close="outside" aria-expanded="false"><span >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="5" y1="7" x2="19" y2="7" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="5" y1="12" x2="19" y2="12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="5" y1="17" x2="19" y2="17" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line></svg><i class="fa-solid fa-{{request.user.full_name|first|lower}}  blacken-text-icon" ></i></span>   </a>
+                <ul class="dropdown-menu drop-down-elem-1-barbify">
+                
+                <li >
+                
+                </li>
+                
+                <a href=""  class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.75988 19.8248C6.9173 17.5547 9.27709 16 12 16C14.7019 16 17.0462 17.5308 18.2131 19.7723M14.3333 10.4444C14.3333 11.7945 13.2389 12.8889 11.8889 12.8889C10.5389 12.8889 9.44444 11.7945 9.44444 10.4444C9.44444 9.09442 10.5389 8 11.8889 8C13.2389 8 14.3333 9.09442 14.3333 10.4444ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>   <span>Profile</span></a>
+              
+               
+              
+            
+               <a href="{% url "core:view_wishlist" %}" class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>   <span>Wishlist</span></a>
+                <a href="{% url "userauths:logout" %}" class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle><path d="M7 12H17M7 12L11 8M7 12L11 16" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>  <span>Log out</span></a>
+                </ul>
+            </li>
+            {% else %}
+            <div class="d-inline-flex align-items-center justify-content-center">
+              <a href="#" title="" style="border-radius: 20px;" class="btn btn-primary px-3 py-2 account-icon account">Sign in</a>
+            </div>
+            {% endif %}
+       
+              
+            </div>
+        </div>
+      </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style perfect-scrollbar">
+      <div class="mobile-header-wrapper-inner">
+        <div class="mobile-header-content-area">
+        {% if not request.user.is_authenticated %}
+          <div class="mobile-menu-head">
+            <div class="box-head-1"><a class="link-underline mr-20 account-icon account" href="#">Login</a><a class="link-underline account-icon account" href="#">Sign Up</a><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="Guza"></a></div>
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+          </div>
+          {% else %}
+          <div class="mobile-menu-head">
+            <div class="box-head-1"><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="Guza"></a></div>
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+          </div>
+          <div class="mobile-menu-head">
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+          </div>
+          {% endif %}
+          <div class="perfect-scroll">
+            <div class="mobile-menu-wrap mobile-header-border">
+              <nav>
+                <ul class="mobile-menu font-heading">
+                  <li class="has-children"><a class="active" href="/">Home</a>
+                
+                  </li>
+                  <li class="has-children"><a style="cursor: pointer;">Categories</a>
+                    <ul class="sub-menu">
+                      {% for c in categories %}
+                      <li><a href='{% url "core:category-product-list" c.cid %}'>{{c.title}}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  <li class="has-children"><a href="service-grid.html">Pages</a>
+                    <ul class="sub-menu">
+                      <li><a href='cart.html'>Your Cart</a></li>
+                      <li><a href='checkout.html'>Checkout</a></li>
+                      <li><a href='store-location.html'>Store Location</a></li>
+                      <li><a href='{% url "core:about" %}'>About Us</a></li>
+                      <li><a href='lookbook.html'>Lookbook 1</a></li>
+                      <li><a href='lookbook-2.html'>Lookbook 2</a></li>
+                      <li><a href='lookbook-3.html'>Lookbook 3</a></li>
+                      <li><a href='{% url "core:faq" %}'>FAQs page</a></li>
+                      <li><a href='store-location.html'>Store Locations</a></li>
+                      <li><a href='{% url "core:contact" %}'>Contact Us</a></li>
+                      <li><a href='carrers.html'>Job and Carrers</a></li>
+                      <li><a href='custome-service.html'>Custome Services</a></li>
+                      <li><a href='maintenance.html'>Maintenance</a></li>
+                      <li><a href='comming-soon.html'>Comming soon</a></li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block content %}
+    
+    {% endblock content %}
+    <footer class="footer">
+        <div class="footer-1">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 mb-30">
+                <h5 class="color-white mb-20">Subcribe to our Newsletter</h5>
+                <div class="box-form-subscribe box-form-subscribe-white">
+                  <form class="form-sub" action="#" method="POST">
+                    <input class="form-control" type="text" placeholder="Enter your email">
+                    <input class="btn btn-subscribe" type="submit" value="Subscribe">
+                  </form>
+                </div>
+              </div>
+              <div class="col-lg-8 mb-30">
+                <div class="row">
+                  <div class="col-lg-3 mb-30 footerBorder">
+                    <h6 class="color-white mb-20">Company</h6>
+                    <ul class="menu-footer">
+                      <li><a href='{% url "core:about" %}'>About us</a></li>
+                      <li><a href='carrers.html'>Careers</a></li>
+                      <li><a href='{% url "core:contact" %}'>Contact Us</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 mb-30 footerBorder">
+                    <h6 class="color-white mb-20">Customer Care</h6>
+                    <ul class="menu-footer">
+                      <li><a href='about-us-1.html'>Size Guide</a></li>
+                      <li><a href="{% url "core:faq" %}">Help & FAQs</a></li>
+                      <li><a href="career.html">Return My Order</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 mb-30 footerBorder">
+                    <h6 class="color-white mb-20">Terms & Policies</h6>
+                    <ul class="menu-footer">
+                      <li><a href="#">Duties & Taxes</a></li>
+                      <li><a href="#">Shipping Info</a></li>
+                      <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 mb-30 footerBorder">
+                    <h6 class="color-white mb-20">Follow Us</h6>
+                    <ul class="menu-footer">
+                      <li><a href="#">Instagram</a></li>
+                      <li><a href="#">Facebook</a></li>
+                      <li><a href="#">Pinterest</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-2">
+          <div class="container">
+            <div class="footer-bottom">
+              <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="{% static 'assets/imgs/martmes-logo-removebg-preview.png' %}" height="100" alt="MartmesLtd"><span class="body-p1 color-white d-inline-block align-middle">© 2024 MartmesLtd All rights reserved</span></div>
+                <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
+                  <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
+                    <div class="d-inline-block box-payments mr-20"><img src="{% static 'assets/imgs/template/icons/visa.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/master.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/stripe.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/paypal.svg' %}" alt="Guza"></div>
+                    {% comment %} <div class="dropdown mr-20">
+                      <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownLang">
+                        <li><a class="dropdown-item" href="#">EN</a></li>
+                        <li><a class="dropdown-item" href="#">JP</a></li>
+                        <li><a class="dropdown-item" href="#">KR</a></li>
+                      </ul>
+                    </div> {% endcomment %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div class="box-popup-preview"><a class="btn-close-popup" href="#"><img src="{% static 'assets/imgs/template/icons/close-popup.svg' %}" alt="kidify"></a>
+        <div class="box-popup-content">
+          <div class="preview-product-image">
+            <div class="detail-gallery detail-gallery-2">
+              <div class="box-main-gallery">
+                <div class="product-image-slider product-image-slider-preview">
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                  <figure class="border-radius-10"><a class="glightbox" href="assets/imgs/page/product/img.png"><img src="{% static 'assets/imgs/page/product/img.png' %}" alt="kidify"></a></figure>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-product-info">
+            <div class="box-product-info">
+              <h3 class="mb-5">Summer Stripes Shorts</h3>
+              <div class="block-rating"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-none.svg' %}" alt="Guza"><span class="text-17 neutral-medium-dark">(5)</span></div>
+              <div class="block-price"><span class="price-main">$15.00</span><span class="price-line">$25.00</span></div>
+              <p class="body-p2 viewed-guest viewed-guest-black mb-25"><span class="text-17-medium">24 guests are viewing this product</span></p>
+              <div class="block-description">
+                <p class="body-p2 neutral-medium-dark">The shorts are made from soft organic cotton. They have an elasticated waistband with an internal drawstring and side pockets.</p>
+              </div>
+              <div class="block-quantity">
+                <div class="text-17 neutral-medium-dark mb-10">Quantity</div>
+                <div class="box-form-cart">
+                  <div class="form-cart detail-qty"><span class="minus"></span>
+                    <input class="qty-val form-control" type="text" name="quantity" value="1" min="1"><span class="plus"></span>
+                  </div><a class="btn btn-black" href="#">Add to Cart</a><a class="btn btn-navy" href="#">Buy Now</a>
+                </div>
+              </div>
+              <div class="block-tags-product">
+                <p class="body-p2"><span class="neutral-medium-dark">SKU:</span><span class="neutral-dark">C66R8B47MP</span></p>
+                <p class="body-p2"><span class="neutral-medium-dark">Categories:</span><a class="neutral-dark" href="#">Dress,</a><a class="neutral-dark" href="#">Pants</a></p>
+                <p class="body-p2"><span class="neutral-medium-dark">Tags:</span><a class="neutral-dark" href="#">fashion,</a><a class="neutral-dark" href="#">shoes,</a><a class="neutral-dark" href="#">women</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-popup-search ele-popup-search">
+        <div class="box-search-overlay"></div>
+        <div class="box-search-wrapper"><a class="btn-close-popup" href="#">
+            <svg class="icon-16 d-inline-flex align-items-center justify-content-center" fill="#111111" stroke="#111111" width="24" height="24" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg></a>
+          <h5 class="mb-15">Search products</h5>
+          <form method="GET" action="{% url 'core:search' %}">
+            <div class="form-group">
+              <select name="category" class="form-control arrow-select">
+                <option value="">All Categories</option>
+                {% for c in categories %}
+                <option value="{{c.title}}">{{c.title}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <input name="q" class="form-control search-icon" type="text">
+            </div>
+          </form>
+          <div class="box-quick-search"><span class="text-17 neutral-medium-dark">Quick search:  </span><a class="text-17" href="#">T-Shirt</a><a class="text-17" href="#">Jeans</a></div>
+          <div class="box-products-search mt-20">
+            {% if recommended_products %}
+            <h6 class="text-18-medium mb-10">You May Also Like</h6>
+            <div class="box-list-product-search">
+              {% for product in recommended_products %}
+              <div class="item-product-search">
+                <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp rounded-2">
+                  <div class="cardImage"><a href="#"><img class="imageMain rounded-2" src="{{product.image.url}}" height="160" alt="guza"><img class="imageHover rounded-2" src="{{product.image2.url}}" alt="{{product.title}}"></a>
+                    <div class="button-select"><a href="#">Select Options</a></div>
+                   
+                  </div>
+                  <div class="cardInfo">
+                    <h6 class="text-16-medium">{{product.title}}</h6>
+                    <p class="body-p2 cardDesc">₦{{product.price|floatformat:0|intcomma}}</p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+            {% else %}
+            <div class="box-list-product-search">
+              <div class="item-product-search">
+                <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
+                  <div class="cardImage"><a href="#"><img class="imageMain" src="{% static 'assets/imgs/page/popup/product-1.png' %}" alt="guza"><img class="imageHover" src="{% static 'assets/imgs/page/popup/product-5.png' %}" alt="guza"></a>
+                    <div class="button-select"><a href="#">Select Options</a></div>
+                   
+                  </div>
+                  <div class="cardInfo">
+                    <h6 class="text-16-medium">Pillow Covers Luxury</h6>
+                    <p class="body-p2 cardDesc">$24.00</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="box-popup-account">
+        <div class="box-account-overlay"></div>
+        <div class="box-account-wrapper rounded-3"><a class="btn-close-popup btn-close-popup-account" href="#">
+          
+            <svg class="icon-16 d-inline-flex align-items-center justify-content-center hover-dark" fill="#111111" stroke="#111111" width="30" height="30" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg></a>
+            
+          <div class="form-account-info">
+          
+            <div style="align-items: center; display: flex; justify-content: center;">
+            <a class="button-tab btn-for-login active" href="#">Login</a><a class="button-tab btn-for-signup" href="#">Sign up</a>
+            </div>
+            
+           
+            <form method="POST" id="loginForm">
+              <p id="LoginErrorMessage" class="text-danger pt-2"></p>
+              {% csrf_token %}
+              <div class="form-login">
+                <div class="form-group">
+                  <input class="form-control" name="email" type="text" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" name="password" type="password" placeholder="Password">
+                </div>
+                <div class="form-group"><a class="link-under buttun-forgotpass fw-500" style="text-decoration: none; font-size: 14px;" href="#">Forgot your password?</a></div>
+                <div class="form-group">
+                  <button class="btn btn-black d-block" id="loginBtn">Login</button>
+                </div>
+              </div>
+            </form>
+
+            <form method="POST" id="registerForm">
+              <p id="SignUpErrorMessage" class="text-danger pt-2"></p>
+              {% csrf_token %}
+              <div class="form-register">
+                <div class="form-group">
+                  <input class="form-control" type="text" name="full_name" placeholder="Full Name">
+                </div>
+               
+                <div class="form-group">
+                  <input class="form-control" type="tel" name="phone_number" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="text" name="email" placeholder="Email">
+                  <span id="email_error"></span>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+               
+                <div class="form-group">
+                  <button class="btn btn-black d-block" id="registerBtn" type="submit">Create my account</button>
+                </div>
+                {% comment %} <div class="text-center">
+                  <p class="body-p2 neutral-medium-dark">Already have an account?<a class="neutral-dark login-now" href="#">Login Now</a></p>
+                </div> {% endcomment %}
+              </div>
+            </form>
+
+          </div>
+          <form method="POST" id="ForgotPasswordForm">
+            {% csrf_token %}
+            <div class="form-password-info">
+              <h5>Recover password</h5>
+              
+              <p class="pt-3 dissapear-content">Include the email address associated with your account.</p>
+              <p id="ForgotPasswordErrorMessage" class="text-danger pt-2"></p>
+              <div class="form-login">
+                <div class="form-group dissapear-content" id="passwordMessage">
+                  <input class="form-control" name="email" type="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group dissapear-content" id="passwordCheckmark">
+                  <button class="btn btn-black d-block" type="submit" id="ForgotPasswordBtn">Recover</button>
+                </div>
+                <div class="text-center dissapear-content">
+                  <p class="body-p2 neutral-medium-dark" style="font-size: 14px;">Already have an account? <a class="neutral-dark login-now" href="#">Login Now</a></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <script src="{% static 'assets/js/vendors/modernizr-3.6.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery-3.7.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery-migrate-3.3.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/waypoints.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/wow.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/magnific-popup.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/perfect-scrollbar.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/select2.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/isotope.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/swiper-bundle.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/counterup.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery.countdown.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/slick.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery.timepicker.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/glightbox.min.js' %}"></script>
+      <script src="{% static 'assets/js/maine209.js' %}"></script>
+      <script src="{% static 'assets/js/ajax.js' %}"></script>
+      
+    </body>
+  </html>

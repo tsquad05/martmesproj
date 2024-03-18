@@ -1,0 +1,322 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{p.title|capfirst}} - MartmesLtd{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+    <main class="main">
+
+      <section class="section block-product-single">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              
+              <div class="detail-gallery detail-gallery-2">
+                <div class="box-main-gallery">
+                  <div class="product-image-slider product-image-slider-2">
+                    <figure class="border-radius-10 rounded-2"><a class="glightbox" href="{{p.image.url}}"><img src="{{p.image.url}}"  class="rounded-2" alt="{{p.title}} image"></a></figure>
+                    <figure class="border-radius-10 rounded-2"><a class="glightbox" href="{{p.image2.url}}"><img src="{{p.image2.url}}"  class="rounded-2" alt="{{p.title}} image"></a></figure>
+
+                    {% for p in p_image %}
+                    <figure class="border-radius-10 rounded-2"><a class="glightbox" href="{{p.images.url}}"><img src="{{p.images.url}}"  class="rounded-2" alt="{{p.title}} image"></a></figure>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="slider-nav-thumbnails slider-nav-thumbnails-2">
+                  <div>
+                    <div class="item-thumb rounded-2"><img src="{{p.image.url}}" class="rounded-2" style="height: 180px; width: 180px;" alt="{{p.title}} image"></div>
+                  </div>
+                  <div>
+                    <div class="item-thumb rounded-2"><img src="{{p.image2.url}}" class="rounded-2" style="height: 180px; width: 180px;" alt="{{p.title}} image"></div>
+                  </div>
+                  {% for p in p_image %}
+                  <div>
+                    <div class="item-thumb rounded-2"><img src="{{p.images.url}}" class="rounded-2" style="height: 180px; width: 180px;" alt="{{p.title}} image"></div>
+                  </div>
+                  {% endfor %}
+                </div>
+                
+              </div>
+              <style>
+                table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                th, td {
+                  padding: 8px;
+                  text-align: left;
+                  border: 1px solid #ddd;
+                }
+                th {
+                 
+                }
+              </style>
+              {% if p.category.title == "Real Estate" or p.category.title == "Rentage"  %}
+              <table>
+                <tr>
+                  <th style="font-weight: 400;"><i class="fas fa-bed"></i> <br>{{p.house.num_bedrooms}} Bedrooms</th>
+                  <th style="font-weight: 400;"><i class="fas fa-bath" ></i> <br>{{p.house.num_bathrooms}} Bathrooms</th>
+                  <th style="font-weight: 400;"><i class="fas fa-toilet"></i> <br>{{p.house.num_toilets}} Toilets</th>
+                  <th style="font-weight: 400;"><i class="fas fa-car"></i> <br>{{p.house.num_parking_spaces}} Parking Space{{p.house.num_parking_spaces|pluralize}}</th>
+
+                </tr>
+              </table>
+              {% endif %}
+            </div>
+            
+            <div class="col-lg-6">
+              <div class="box-product-info">
+                {% comment %} <p class="body-p2 viewed-guest"><span class="text-17-medium tone-red">{{view_count}} guests</span>are viewing this product</p> {% endcomment %}
+                <h3 class="mb-10 mt-15">{{p.title}}</h3>
+                <div class="block-price"><span class="price-main mt-5">₦{{p.price|floatformat:0|intcomma}}</span></div>
+                <div class="block-description">
+                  <p class="body-p2 neutral-medium-dark">{{p.specifications}}</p>
+                </div>
+               
+        
+                <div class="block-quantity mb-5">
+                  <div class="box-form-cart">
+                    {% if user.is_authenticated %}
+                   <a class="btn btn-navy" href="https://wa.me/2347065508297?text=Hi%20*MartmesLtd%20Resources*,%0A%0AI'd%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A%0A*Item%20Name:*%20[{{p.title}}]%0A*Price:*%20[₦{{p.price|intcomma}}]%0A*SKU:*%20[{{p.sku}}]%0A%0APlease%20let%20me%20know%20the%20payment%20method%20and%20any%20other%20details%20required%20to%20complete%20the%20purchase.%0A%0AThank%20you,%0A{{user.full_name}}">Buy Now</a>
+                   {% else %}
+                   <a class="btn btn-navy account-icon account">Buy Now</a>
+                   {% endif %}
+                   {% if request.user.is_authenticated %}
+                   {% if wishlist_entry %}
+                   <a class="btn btn-wishlist" style="cursor: pointer;">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                   </a>
+                   {% else %}
+                   <a class="btn btn-wishlist btn-get-wishlist" data-product-item="{{ p.id }}" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg></a>
+                    {% endif %}
+                    {% else %}
+                    <a class="btn btn-wishlist account-icon account" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg></a>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="block-shipping">
+                  <div class="free-shipping mb-15">Save big with Martmes</div>
+                  <div class="time-shipping mb-15">Fast & Secure Checkout</div>
+                  <div class="time-shipping mb-15">60 - Days Returns Learn More</div>
+
+                </div>
+                <div class="block-share"><a class="campage body-p2 mr-30" href="#">Campage</a><a class="link-share body-p2" id="copyButton"  style="cursor: pointer;">Share</a></div>
+                <div class="block-tags-product">
+                  <p class="body-p2 mb-15"><span class="neutral-medium-dark">SKU: </span><span class="neutral-dark">{{p.sku}}</span></p>
+                  <p class="body-p2 mb-15"><span class="neutral-medium-dark">Tags: </span><a class="neutral-dark" href="#">{% for tag in p.tags.all %}<a href="{% url 'core:tags' tag.slug %}" rel="tag">#{{tag.name}}, {% endfor %}</a></p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <script>
+            document.getElementById('copyButton').addEventListener('click', function() {
+              var dummyInput = document.createElement('input');
+              document.body.appendChild(dummyInput);
+              dummyInput.value = window.location.href;
+              dummyInput.select();
+              document.execCommand('copy');
+              document.body.removeChild(dummyInput);
+
+              Toastify({
+                text: 'Product link copied to clipboard',
+                duration: 3000,  // 3 seconds
+                close: true,
+                gravity: 'top',
+                position: 'center',
+                backgroundColor: '#0d6efd',
+                stopOnFocus: true
+            }).showToast();
+          });
+          
+          </script>
+          <div class="box-detail-product">
+            <ul class="nav-tabs nav-tab-product" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false" >Reviews (3)</button>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <p>{{p.description|safe}}</p>
+              </div>
+
+              <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <div class="comments-area">
+                  <div class="row">
+                    <div class="col-lg-12 mb-30">
+                      <h4 class="mb-30 title-question">Customer reviews</h4>
+                      <div class="d-flex align-items-center mb-30">
+                        <div class="product-rate d-inline-block mr-15">
+                          <div class="product-rating" style="width: 90%"></div>
+                        </div>
+                        <h6>4.8 out of 5</h6>
+                      </div>
+                      <div class="progress"><span>5 star</span>
+                        <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                      </div>
+                      <div class="progress"><span>4 star</span>
+                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                      </div>
+                      <div class="progress"><span>3 star</span>
+                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                      </div>
+                      <div class="progress"><span>2 star</span>
+                        <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40%</div>
+                      </div>
+                      <div class="progress mb-30"><span>1 star</span>
+                        <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+                      </div><a class="font-xs text-muted" href="#">How are ratings calculated?</a>
+                    </div>
+                    <div class="col-lg-12 mb-30">
+                      <h4 class="mb-30 title-question">Customer questions &amp; answers</h4>
+                      <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex mb-30 hover-up">
+                          <div class="user justify-content-between d-flex">
+                            <div class="thumb text-center"><img src="{% static 'assets/imgs/page/about1/team.png' %}" alt="Ecom"><a class="font-heading text-brand" href="#">Sienna</a></div>
+                            <div class="desc">
+                              <div class="d-flex justify-content-between mb-10">
+                                <div class="d-flex align-items-center"><span class="font-xs color-gray-700">December 4, 2023 at 3:12 pm</span></div>
+                                <div class="product-rate d-inline-block">
+                                  <div class="product-rating" style="width: 100%"></div>
+                                </div>
+                              </div>
+                              <p class="mb-10 font-sm color-gray-900">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi
+                                repudiandae minus ab deleniti totam officia id incidunt?<a class="reply" href="#"> Reply</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+       
+                        <div class="single-comment justify-content-between d-flex hover-up">
+                          <div class="user justify-content-between d-flex">
+                            <div class="thumb text-center"><img src="{% static 'assets/imgs/page/about1/team.png' %}" alt="Ecom"><a class="font-heading text-brand" href="#">Gemma</a></div>
+                            <div class="desc">
+                              <div class="d-flex justify-content-between mb-10">
+                                <div class="d-flex align-items-center"><span class="font-xs color-gray-700">December 4, 2023 at 3:12 pm</span></div>
+                                <div class="product-rate d-inline-block">
+                                  <div class="product-rating" style="width: 80%"></div>
+                                </div>
+                              </div>
+                              <p class="mb-10 font-sm color-gray-900">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi
+                                repudiandae minus ab deleniti totam officia id incidunt?<a class="reply" href="#"> Reply</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% if products %}
+      <section class="section block-may-also-like">
+        <div class="container">
+          <div class="text-center">
+            <h3 class="mb-60">You May Also Like</h3>
+          </div>
+          <div class="row">
+            {% for p in products %}
+            <div class="col-lg-3 col-md-6">
+              <div class="cardProduct wow fadeInUp rounded-2">
+                <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover rounded-2" src="{{p.image2.url}}" alt="{{p.title}}"></a>
+               
+                  <div class="box-quick-button">
+                    {% if request.user.is_authenticated %}
+                    {% if p.in_wishlist %}
+                      <a class="btn btn-wishlist" style="cursor: pointer;">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                      </a>
+                    {% else %}
+                    <a class="btn btn-get-wishlist"  data-product-item="{{ p.id }}" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <a class="btn account account-icon account" style="cursor: pointer;">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+                    
+                    {% endif %}
+                    <a class="btn preview-product" href="#">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_91_73)">
+                          <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_91_73">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg></a>
+                  </div>
+                </div>
+                <div class="cardInfo"><a href="{% url "core:listing-detail" p.pid %}">
+                    <h6 class="text-16-medium cardTitle">{{p.title}}</h6></a>
+                  <p class="body-p2 cardDesc fw-600 font-sofia" style="margin-top: -4px;">{{p.specifications|truncatechars:"25"}}</p>
+             
+                  {% if p.category.title == "Real Estate" or p.category.title == "Rentage"  %}
+                  <a class="" style="font-weight: 400; margin-right: 3px;"><i class="fas fa-bed"></i> {{p.house.num_bedrooms}} Bedrooms</a>
+                    <a class="" style="font-weight: 400;  margin-right: 3px;"><i class="fas fa-bath"></i> {{p.house.num_bathrooms}} Baths</a>
+                    <a class="" style="font-weight: 400;"><i class="fas fa-toilet" style="margin-bottom: 15px;"></i> {{p.house.num_toilets}} Toilets</a>
+                  {% endif %}
+                    <p class="text-16-medium cardTitle" style="margin-top: -7px;">₦{{p.price|floatformat:0|intcomma}}</p>
+                  
+                
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      {% endif %}
+    </main>
+    {% endblock content %}

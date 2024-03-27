@@ -1,10 +1,8 @@
 (function ($) {
     ("use strict");
     // Page lo                                                                                                                                                                                                                                                                                                                                                                                                               ading
-    $(document).ready(function() {
-        setTimeout(function() {
-            $("#preloader-active").fadeOut("slow");
-        }, 6000); // 6000 milliseconds = 6 seconds
+    $(window).on("load", function () {
+        $("#preloader-active").fadeOut("slow");
     });
     
     /*-----------------

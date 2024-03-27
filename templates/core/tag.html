@@ -55,12 +55,12 @@
                         <li> 
                           <label class="cb-container">
                             <input type="checkbox"><span class="text-small">Womens <span class="neutral-medium">(12)</span></span><span class="checkmark"></span>
-                          </label><span class="arrow-down"></span>
+                          </label>
                         </li>
                         <li> 
                           <label class="cb-container">
                             <input type="checkbox"><span class="text-small">Mens <span class="neutral-medium">(9)</span></span><span class="checkmark"></span>
-                          </label><span class="arrow-down"></span>
+                          </label>
                           <ul> 
                             <li> 
                               <label class="cb-container">
@@ -82,12 +82,12 @@
                         <li> 
                           <label class="cb-container">
                             <input type="checkbox"><span class="text-small">Kids <span class="neutral-medium">(15)</span></span><span class="checkmark"></span>
-                          </label><span class="arrow-down"></span>
+                          </label>
                         </li>
                         <li> 
                           <label class="cb-container">
                             <input type="checkbox"><span class="text-small">Gifts <span class="neutral-medium">(10)</span></span><span class="checkmark"></span>
-                          </label><span class="arrow-down"></span>
+                          </label>
                         </li>
                       </ul>
                     </div>
@@ -129,7 +129,7 @@
               </div>
             </div>
             <div class="box-sort"> 
-              <div class="box-sortby d-flex align-items-center">
+              {% comment %} <div class="box-sortby d-flex align-items-center">
                 <div class="dropdown dropdown-sort">
                   <button class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">Default Sorting</button>
                   <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort" style="margin: 0px;">
@@ -138,7 +138,7 @@
                     <li><a class="dropdown-item" href="#">Comments products </a></li>
                   </ul>
                 </div>
-              </div>
+              </div> {% endcomment %}
               <div class="box-view-style"> <a class="view-type view-2" href="#" data-col="2"></a><a class="view-type view-3 active" href="#" data-col="3"></a><a class="view-type view-4" href="#" data-col="4"></a><a class="view-type view-5" href="#" data-col="5"></a></div>
             </div>
           </div>
@@ -223,15 +223,12 @@
           </div>
         </div>
         <div class="container">
-          <div class="box-your-filter box-your-filter-shop2">
-            <div class="block-text-filter"><span class="body-p2 neutral-medium-dark">Filter</span></div>
-            <div class="block-ele-filter"><a class="btn btn-tag-filter" href="#">XS<span class="close-tag"></span></a><a class="btn btn-tag-filter" href="#">Women<span class="close-tag"></span></a><a class="clear-filter link-underline" href="#">Clear All</a></div>
-          </div>
+          
           <div class="box-list-products box-list-products-4 box-list-products-shop-2">
             {% for p in products %}
             <div class="product-item">
-              <div class="cardProduct wow fadeInUp">
-                <div class="cardImage"><a href="#"><img class="imageMain" src="{{p.image.url}}" alt="guza"><img class="imageHover" src="{{p.image2.url}}" alt="{{p.title}} image"></a> 
+              <div class="cardProduct wow fadeInUp rounded-2">
+                <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover rounded-2" src="{{p.image2.url}}" alt="{{p.title}} image"></a> 
                   <div class="box-quick-button">
                     {% if request.user.is_authenticated %}
                     {% if p.in_wishlist %}
@@ -267,7 +264,7 @@
                     </a>
                     
                     {% endif %}
-                    <a class="btn preview-product" href="#">
+                    <a class="btn " href="{% url "core:listing-detail" p.pid %}">
                       <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_91_73)">
                           <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
@@ -289,6 +286,7 @@
             </div>
             {% endfor %}
           </div>
+          
           <div class="text-center mt-50">
             
           </div>

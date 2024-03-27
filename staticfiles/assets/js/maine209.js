@@ -1,8 +1,8 @@
 (function ($) {
     ("use strict");
-    // Page loading
+    // Page lo                                                                                                                                                                                                                                                                                                                                                                                                               ading
     $(window).on("load", function () {
-        $("#preloader-active").fadeOut("slow");
+       $("#preloader-active").fadeOut("slow");
     });
     /*-----------------
         Menu Stick
@@ -930,7 +930,7 @@
         nextArrow: '<button type="button" class="slick-next"></button>'
     });
     $(".slider-nav-thumbnails-2").slick({
-        slidesToShow: 5,
+        slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: ".product-image-slider-2",
         dots: false,
@@ -968,7 +968,7 @@
         nextArrow: '<button type="button" class="slick-next"></button>'
     });
     $(".slider-nav-thumbnails-5").slick({
-        slidesToShow: 4,
+        slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: ".product-image-slider-5",
         dots: false,

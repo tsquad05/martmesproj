@@ -1,0 +1,118 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Account Settings - MartmesLtd{% endblock title %}
+{% block content %}
+    <main class="main">
+        <style>
+            .header-text-martmesltd{
+                font-size: 2rem !important;
+                line-height: 2.25rem !important;
+                font-weight: 600 !important;
+                color: #222222 !important;
+            }
+            ._184uai1 {
+                font-size: 1.125rem !important;
+                line-height: 1.5rem !important;
+                font-weight: 400 !important;
+                color: #222222 !important;
+                margin-top: 8px !important;
+                margin-bottom: 16px !important;
+            }
+            .card{
+                box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+                border: none !important;
+            }
+            
+            a:hover, a:hover * {
+                color: #222222;
+            }
+            .card-title{
+                font-size: 14px;
+            }
+            .card-text{
+                font-size: 12px;
+                font-weight: 300;
+                
+            }
+        </style>
+        <div class="container mb-50 " style="padding-top: 50px !important;"> 
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-9">
+                    <h1 class="header-text-martmesltd">Account</h1>
+                    <h3 class="_184uai1"><span style="font-weight: 600;">{{request.user.full_name|capfirst}}</span>, <span style="font-weight: 300; font-size: 14px;">{{request.user.email}}</span></h3>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-3 mb-20 mb-sm-0">
+                    <a id="linkBody" href="{% url "core:account_info" %}">
+                        <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title">Account info</h5>
+                            <p class="card-text">Provide personal details, it helps martmes reach you faster.</p>
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 mb-20">
+                    <a id="linkBody" href="{% url "core:update-password" %}">
+                        <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title">Account security</h5>
+                            <p class="card-text">Update your password and protect your account.</p>
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 mb-20">
+                    <a id="linkBody" href="{% url "core:chat_page" %}">
+                        <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title">Chats</h5>
+                            <p class="card-text">Chats from your previous inquiries of listings.</p>
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-3 mb-20">
+                    <a id="linkBody" href="{% url "core:notifications" %}">
+                        <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title">Notifications</h5>
+                            <p class="card-text">Get notified of MartmesLtd latest changes.</p>
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 mb-20">
+                    <a id="linkBody" href="{% url "core:view_wishlist" %}">
+                        <div class="card">
+                            <div class="card-body">
+                            <h5 class="card-title">Your wishlist</h5>
+                            <p class="card-text">As you search, click the heart icon to save your favorite listings to a wishlist.</p>
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+               
+              </div>
+        </div>
+    </main>
+  {% endblock content %}

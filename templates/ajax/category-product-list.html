@@ -1,0 +1,58 @@
+{% load static %}
+{% load humanize %}
+{% for p in data %}
+<div class="product-item">
+  <div class="cardProduct wow fadeInUp rounded-2">
+    <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover rounded-2" src="{{p.image2.url}}" alt="{{p.title}}"></a>
+            
+      <div class="box-quick-button">
+        {% if request.user.is_authenticated %}
+        {% if p.in_wishlist %}
+          <a class="btn btn-wishlist" style="cursor: pointer;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        {% else %}
+        <a class="btn btn-get-wishlist"  data-product-item="{{ p.id }}" style="cursor: pointer;">
+          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_116_452)">
+              <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+            </g>
+            <defs>
+              <clippath id="clip0_116_452">
+                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+              </clippath>
+            </defs>
+          </svg>
+        </a>
+        {% endif %}
+        {% else %}
+        <a class="btn account account-icon account" style="cursor: pointer;">
+          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_116_452)">
+              <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+            </g>
+            <defs>
+              <clippath id="clip0_116_452">
+                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+              </clippath>
+            </defs>
+          </svg>
+        </a>
+        
+        {% endif %}
+      
+      </div>
+    </div>
+    <div class="cardInfo"><a href="{% url "core:listing-detail" p.pid %}">
+        <h6 class="text-16-medium cardTitle">{{p.title}}</h6></a>
+        {% if p.category.title == "Real Estate" or p.category.title == "Rentage"  %}
+        <a class="" style="font-weight: 400; margin-right: 3px;"><i class="fas fa-bed"></i> {{p.house.num_bedrooms}}</a>
+        <a class="" style="font-weight: 400;  margin-right: 3px;"><i class="fas fa-bath"></i> {{p.house.num_bathrooms}} </a>
+        <a class="" style="font-weight: 400;"><i class="fas fa-toilet" style="margin-bottom: 10px;"></i> {{p.house.num_toilets}} </a>
+        {% endif %}
+      <p class="body-p2 cardDesc">₦{{p.price|floatformat:0|intcomma}}</p>
+      
+    </div>
+  </div>
+</div>
+{% endfor %}

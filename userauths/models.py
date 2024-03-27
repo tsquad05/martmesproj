@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    phone_number = models.PositiveBigIntegerField(default="+234123456789", null=True, unique=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
     email_verified = models.BooleanField(default=False)
     has_paid = models.BooleanField(default=False)
     last_password_reset_request = models.DateTimeField(null=True, blank=True)
@@ -84,6 +84,6 @@ class Contact(models.Model):
     email = models.EmailField()
     message = models.TextField(null=True, blank=True)
     class Meta:
-        verbose_name_plural = "Users that contacted"
+        verbose_name_plural = "Messages from clients"
     def __str__(self):
         return self.email

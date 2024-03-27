@@ -1,8 +1,9 @@
 from django.urls import path
 from .views import (index, tag_list, contact_view, about_view, faq_view, search_view,
-                    automobile_view, automobile_detail_view,
-                    category_product_list_view,
-                    category_list_view, add_to_wishlist, view_wishlist, delete_from_wishlist)
+                    automobile_view, automobile_detail_view, chat_page, terms,
+                    category_product_list_view, notifications, mark_as_read, privacy,
+                    category_list_view, add_to_wishlist, view_wishlist, delete_from_wishlist, load_more, submit_inquiry,
+                    account_settings, update_password, change_password, account_info, update_profile, submit_contact_view)
 
 app_name = "core"
 
@@ -16,8 +17,21 @@ urlpatterns = [
     path('categories/<cid>', category_product_list_view, name="category-product-list" ),
     path("listings/tag/<slug:tag_slug>/", tag_list, name='tags'),
     path('automobiles/', automobile_view, name="automobile" ),
-    path('listing/<pid>', automobile_detail_view, name="listing-detail" ),
+    path('listings/listing/<pid>', automobile_detail_view, name="listing-detail" ),
     path('add-to-wishlist/', add_to_wishlist, name='add_to_wishlist'),
     path('delete-from-wishlist/', delete_from_wishlist, name='delete_from_wishlist'),
     path('wishlist/', view_wishlist, name='view_wishlist'),
+    path('load-more-data/', load_more, name='load-more-data'),
+    path('submit_inquiry/', submit_inquiry, name='submit_inquiry'),
+    path('account-settings/', account_settings, name='account_settings'),
+    path('account-settings/update-password/', update_password, name='update-password'),
+    path('account-settings/change-user-password/', change_password, name='change-password'),
+    path('account-settings/notifications/', notifications, name='notifications'),
+    path('account-settings/notifications/<int:notification_id>/mark_as_read/', mark_as_read, name='mark_as_read'),
+    path('account-settings/account-information/', account_info, name='account_info'),
+    path('update-profile/', update_profile, name='update_profile'),
+    path('submit-contact/', submit_contact_view, name='submit_contact'),
+    path('account-settings/chats/', chat_page, name="chat_page" ),
+    path('terms-of-use/', terms, name="terms" ),
+    path('privacy-policy/', privacy, name="privacy" )
 ]

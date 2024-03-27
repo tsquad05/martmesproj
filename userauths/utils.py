@@ -1,5 +1,6 @@
-from django.utils.crypto import get_random_string
+from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.core.mail import send_mail
@@ -11,6 +12,7 @@ import threading
 from django.conf import settings
 
 
+
 resend.api_key = getattr(settings, 'SENSITIVE_VARIABLE', None)
 def send_email_async(email_data):
     # Send the email using the resend module
@@ -18,8 +20,9 @@ def send_email_async(email_data):
 
 def send_confirmation_email(request, user):
     # Generate a random token
-    token = get_random_string(length=32)
-    
+    token = default_token_generator.make_token(user)
+    current_site = get_current_site(request)
+    site_url = request.scheme + '://' + current_site.domain
     # Create a UserToken instance
     user_token = UserToken.objects.create(
         user=user,
@@ -30,7 +33,7 @@ def send_confirmation_email(request, user):
     
     # Compose the email message
     recipient = user.email
-    confirmation_link = f'https://martmesltd.com/confirm-email/{token}/'
+    confirmation_link = f'{site_url}/confirm-email/{token}/'
     email_data = {
                 "from": "MartmesLtd <noreply@martmesltd.com>",
                 "to": recipient,
@@ -129,7 +132,9 @@ def reset_password(request, user):
     # Generate a random token
     if user.last_password_reset_request and user.last_password_reset_request + cooldown_period > now:
       return redirect('password_reset_cooldown')
-    token = get_random_string(length=32)
+    token = default_token_generator.make_token(user)
+    current_site = get_current_site(request)
+    site_url = request.scheme + '://' + current_site.domain
     
     # Create a UserToken instance
     user_token = UserToken.objects.create(
@@ -141,7 +146,7 @@ def reset_password(request, user):
     
     # Compose the email message
     recipient = user.email
-    reset_link = f'https://martmesltd.com/reset-password/{token}/'
+    reset_link = f'{site_url}/reset-password/{token}/'
     email_data = {
                 "from": "MartmesLtd <noreply@martmesltd.com>",
                 "to": recipient,

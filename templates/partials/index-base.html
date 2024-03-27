@@ -16,6 +16,11 @@
     <meta name="keywords" content="automobiles, real estate, rentage, building materials, furniture, household fittings, Martmes Ltd">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
+    <meta name="application-name" content="MartmesLtd"/>
+    <meta name="apple-mobile-web-app-title" content="MartmesLtd"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <meta name="msapplication-navbutton-color" content="#ffffff"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <title>{% block title %}{% endblock title %}</title>
     
     <!-- Canonical Tag -->
@@ -47,7 +52,7 @@
 
   </head>
   <body>
-    <div id="preloader-active">
+    {% comment %} <div id="preloader-active">
       <div class="preloader d-flex align-items-center justify-content-center">
         <div class="preloader-inner position-relative">
           <div class="page-loading">
@@ -63,7 +68,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
     <header class="header sticky-bar header-style-3" id="header-navbar">
       <div class="container">
         <div class="main-header">
@@ -83,17 +88,19 @@
               
                   <li class="has-children"><a href="#"  class="fw-medium">Categories</a>
                     <ul class="sub-menu rounded-sub-menu sub-menu-enlarged">
+                      <li><a href='{% url "core:categories"  %}' style="font-size: 15px;">All Categories</a></li>
                       {% for c in categories %}
-                      <li><a href='{% url "core:category-product-list" c.cid %}'>{{c.title}}</a></li>
+                     
+                      <li><a href='{% url "core:category-product-list" c.cid %}' style="font-size: 15px;">{{c.title}}</a></li>
                       {% endfor %}
                     </ul>
                   </li>
-                  <li class="has-children"><a href="#"  class="fw-medium">Discover</a>
+                  <li class="has-children"><a href="#"  class="fw-medium">Company</a>
                     <ul class="sub-menu rounded-sub-menu sub-menu-enlarged">
                 
-                      <li><a href='{% url "core:about"  %}'>About Us</a></li>
-                      <li><a href='{% url "core:faq"  %}'>FAQs</a></li>
-                      <li><a href='{% url "core:categories"  %}'>All Categories</a></li>
+                      <li><a href='{% url "core:about"  %}' style="font-size: 15px;">About Us</a></li>
+                      <li><a href='{% url "core:faq"  %}' style="font-size: 15px;">FAQs</a></li>
+                    
                       
                     </ul>
                   </li>
@@ -107,7 +114,7 @@
             </div>
           </div>
           <div class="header-account">
-            <a class="account-icon search" href="#">
+            <a class="account-icon search" style="cursor: pointer;">
               <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_91_73)">
                   <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"></path>
@@ -139,25 +146,25 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="5" y1="7" x2="19" y2="7" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
                 <line x1="5" y1="12" x2="19" y2="12" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
-                <line x1="5" y1="17" x2="19" y2="17" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line></svg><i class="fa-solid fa-{{request.user.full_name|first|lower}}  blacken-text-icon" ></i></span>   </a>
+                <line x1="5" y1="17" x2="19" y2="17" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line></svg><i class="fa-solid fa-{{request.user.full_name|first|lower}}  blacken-text-icon" style="font-size: 9px;" ></i></span>   </a>
                 <ul class="dropdown-menu drop-down-elem-1-barbify">
                 
                 <li >
                 
                 </li>
                 
-                <a href=""  class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.75988 19.8248C6.9173 17.5547 9.27709 16 12 16C14.7019 16 17.0462 17.5308 18.2131 19.7723M14.3333 10.4444C14.3333 11.7945 13.2389 12.8889 11.8889 12.8889C10.5389 12.8889 9.44444 11.7945 9.44444 10.4444C9.44444 9.09442 10.5389 8 11.8889 8C13.2389 8 14.3333 9.09442 14.3333 10.4444ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>   <span>Profile</span></a>
+                <a href="{% url "core:account_settings" %}"  class="dropdown-item Tyhj-iophfj mb-5"><span>Account</span></a>
               
                
               
-            
-               <a href="{% url "core:view_wishlist" %}" class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>   <span>Wishlist</span></a>
-                <a href="{% url "userauths:logout" %}" class="dropdown-item Tyhj-iophfj mb-5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle><path d="M7 12H17M7 12L11 8M7 12L11 16" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>  <span>Log out</span></a>
+                <a href="{% url "core:notifications" %}" class="dropdown-item Tyhj-iophfj mb-5"><span>Notifications</span></a>
+               <a href="{% url "core:view_wishlist" %}" class="dropdown-item Tyhj-iophfj mb-5"><span>Wishlist</span></a>
+                <a href="{% url "userauths:logout" %}" class="dropdown-item Tyhj-iophfj mb-5"><span>Log out</span></a>
                 </ul>
             </li>
             {% else %}
             <div class="d-inline-flex align-items-center justify-content-center">
-              <a href="#" title="" style="border-radius: 20px;" class="btn btn-primary px-3 py-2 account-icon account">Sign in</a>
+              <a  title="" style="border-radius: 20px; cursor: pointer;" class="btn btn-primary px-3 py-2 account-icon account">Sign in</a>
             </div>
             {% endif %}
        
@@ -171,16 +178,16 @@
         <div class="mobile-header-content-area">
         {% if not request.user.is_authenticated %}
           <div class="mobile-menu-head">
-            <div class="box-head-1"><a class="link-underline mr-20 account-icon account" href="#">Login</a><a class="link-underline account-icon account" href="#">Sign Up</a><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="Guza"></a></div>
-            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+            <div class="box-head-1"><a class="link-underline mr-20 account-icon account" href="#">Login</a><a class="link-underline account-icon account" href="#">Sign Up</a><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="close"></a></div>
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Martmesltd"></a></div>
           </div>
           {% else %}
           <div class="mobile-menu-head">
-            <div class="box-head-1"><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="Guza"></a></div>
-            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+            <div class="box-head-1"><a class="close-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/close.svg' %}" alt="MartmesLtd"></a></div>
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Martmesltd"></a></div>
           </div>
           <div class="mobile-menu-head">
-            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Guza"></a></div>
+            <div class="box-head-2"><a class="back-mobile" href="#"><img src="{% static 'assets/imgs/template/icons/back.svg' %}" alt="Martmesltd"></a></div>
           </div>
           {% endif %}
           <div class="perfect-scroll">
@@ -190,29 +197,32 @@
                   <li class="has-children"><a class="active" href="/">Home</a>
                 
                   </li>
+                  {% if request.user.is_authenticated %}
+                  <li class="has-children"><a>Account</a>
+                    <ul class="sub-menu">
+                      <li><a href='{% url "core:account_settings" %}'>Account Settings</a></li>
+                      <li><a href='{% url "core:notifications" %}'>Notifications</a></li>
+                      <li><a href='{% url "core:view_wishlist" %}'>Wishlist</a></li>
+                      <li><a href='{% url "core:chat_page" %}'>Chats</a></li>
+                      <li><a href='{% url "core:contact" %}'>Help Center</a></li>
+                     
+                    </ul>
+                  </li>
+                  {% endif %}
                   <li class="has-children"><a style="cursor: pointer;">Categories</a>
                     <ul class="sub-menu">
+                      <li><a href='{% url "core:categories"  %}' style="font-size: 15px;">All Categories</a></li>
                       {% for c in categories %}
                       <li><a href='{% url "core:category-product-list" c.cid %}'>{{c.title}}</a></li>
                       {% endfor %}
                     </ul>
                   </li>
-                  <li class="has-children"><a href="service-grid.html">Pages</a>
+                  <li class="has-children"><a href="service-grid.html">Company</a>
                     <ul class="sub-menu">
-                      <li><a href='cart.html'>Your Cart</a></li>
-                      <li><a href='checkout.html'>Checkout</a></li>
-                      <li><a href='store-location.html'>Store Location</a></li>
                       <li><a href='{% url "core:about" %}'>About Us</a></li>
-                      <li><a href='lookbook.html'>Lookbook 1</a></li>
-                      <li><a href='lookbook-2.html'>Lookbook 2</a></li>
-                      <li><a href='lookbook-3.html'>Lookbook 3</a></li>
-                      <li><a href='{% url "core:faq" %}'>FAQs page</a></li>
-                      <li><a href='store-location.html'>Store Locations</a></li>
+                      <li><a href='{% url "core:faq" %}'>Help & FAQs</a></li>
                       <li><a href='{% url "core:contact" %}'>Contact Us</a></li>
-                      <li><a href='carrers.html'>Job and Carrers</a></li>
-                      <li><a href='custome-service.html'>Custome Services</a></li>
-                      <li><a href='maintenance.html'>Maintenance</a></li>
-                      <li><a href='comming-soon.html'>Comming soon</a></li>
+
                     </ul>
                   </li>
 
@@ -231,9 +241,10 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-4 mb-30">
-                <h5 class="color-white mb-20">Subcribe to our Newsletter</h5>
+                <h5 class="color-white mb-20">Subscribe to our Newsletter</h5>
                 <div class="box-form-subscribe box-form-subscribe-white">
                   <form class="form-sub" action="#" method="POST">
+                    {% csrf_token %}
                     <input class="form-control" type="text" placeholder="Enter your email">
                     <input class="btn btn-subscribe" type="submit" value="Subscribe">
                   </form>
@@ -241,38 +252,28 @@
               </div>
               <div class="col-lg-8 mb-30">
                 <div class="row">
-                  <div class="col-lg-3 mb-30 footerBorder">
+                  <div class="col-lg-3 mb-40 footerBorder">
                     <h6 class="color-white mb-20">Company</h6>
                     <ul class="menu-footer">
                       <li><a href='{% url "core:about" %}'>About us</a></li>
-                      <li><a href='carrers.html'>Careers</a></li>
                       <li><a href='{% url "core:contact" %}'>Contact Us</a></li>
                     </ul>
                   </div>
-                  <div class="col-lg-3 mb-30 footerBorder">
+                  <div class="col-lg-3 mb-40 footerBorder">
                     <h6 class="color-white mb-20">Customer Care</h6>
                     <ul class="menu-footer">
-                      <li><a href='about-us-1.html'>Size Guide</a></li>
-                      <li><a href="{% url "core:faq" %}">Help & FAQs</a></li>
-                      <li><a href="career.html">Return My Order</a></li>
+                      <li><a href="{% url "core:contact" %}">Help Center</a></li>
+                      <li><a href="{% url "core:faq" %}">FAQs</a></li>
                     </ul>
                   </div>
-                  <div class="col-lg-3 mb-30 footerBorder">
+                  <div class="col-lg-3 mb-40 footerBorder">
                     <h6 class="color-white mb-20">Terms & Policies</h6>
                     <ul class="menu-footer">
-                      <li><a href="#">Duties & Taxes</a></li>
-                      <li><a href="#">Shipping Info</a></li>
-                      <li><a href="#">Privacy Policy</a></li>
+                      <li><a href="{% url "core:privacy" %}">Privacy Policy</a></li>
+                      <li><a href="{% url "core:terms" %}">Terms Of Use</a></li>
                     </ul>
                   </div>
-                  <div class="col-lg-3 mb-30 footerBorder">
-                    <h6 class="color-white mb-20">Follow Us</h6>
-                    <ul class="menu-footer">
-                      <li><a href="#">Instagram</a></li>
-                      <li><a href="#">Facebook</a></li>
-                      <li><a href="#">Pinterest</a></li>
-                    </ul>
-                  </div>
+               
                 </div>
               </div>
             </div>
@@ -285,7 +286,7 @@
                 <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="{% static 'assets/imgs/martmes-logo-removebg-preview.png' %}" height="100" alt="MartmesLtd"><span class="body-p1 color-white d-inline-block align-middle">© 2024 MartmesLtd All rights reserved</span></div>
                 <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
                   <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
-                    <div class="d-inline-block box-payments mr-20"><img src="{% static 'assets/imgs/template/icons/visa.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/master.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/stripe.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/paypal.svg' %}" alt="Guza"></div>
+                    <div class="d-inline-block box-payments mr-20"><img src="{% static 'assets/imgs/template/icons/visa.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/master.svg' %}" alt="MartmesLtd"><img src="{% static 'assets/imgs/template/icons/stripe.svg' %}" alt="Martmes"><img src="{% static 'assets/imgs/template/icons/paypal.svg' %}" alt="Martmes"></div>
                     {% comment %} <div class="dropdown mr-20">
                       <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownLang">
@@ -318,32 +319,14 @@
               </div>
             </div>
           </div>
-          <div class="preview-product-info">
-            <div class="box-product-info">
-              <h3 class="mb-5">Summer Stripes Shorts</h3>
-              <div class="block-rating"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-fill.svg' %}" alt="Guza"><img src="{% static 'assets/imgs/template/icons/star-none.svg' %}" alt="Guza"><span class="text-17 neutral-medium-dark">(5)</span></div>
-              <div class="block-price"><span class="price-main">$15.00</span><span class="price-line">$25.00</span></div>
-              <p class="body-p2 viewed-guest viewed-guest-black mb-25"><span class="text-17-medium">24 guests are viewing this product</span></p>
-              <div class="block-description">
-                <p class="body-p2 neutral-medium-dark">The shorts are made from soft organic cotton. They have an elasticated waistband with an internal drawstring and side pockets.</p>
-              </div>
-              <div class="block-quantity">
-                <div class="text-17 neutral-medium-dark mb-10">Quantity</div>
-                <div class="box-form-cart">
-                  <div class="form-cart detail-qty"><span class="minus"></span>
-                    <input class="qty-val form-control" type="text" name="quantity" value="1" min="1"><span class="plus"></span>
-                  </div><a class="btn btn-black" href="#">Add to Cart</a><a class="btn btn-navy" href="#">Buy Now</a>
-                </div>
-              </div>
-              <div class="block-tags-product">
-                <p class="body-p2"><span class="neutral-medium-dark">SKU:</span><span class="neutral-dark">C66R8B47MP</span></p>
-                <p class="body-p2"><span class="neutral-medium-dark">Categories:</span><a class="neutral-dark" href="#">Dress,</a><a class="neutral-dark" href="#">Pants</a></p>
-                <p class="body-p2"><span class="neutral-medium-dark">Tags:</span><a class="neutral-dark" href="#">fashion,</a><a class="neutral-dark" href="#">shoes,</a><a class="neutral-dark" href="#">women</a></p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
+  
+ 
+      
+      </body>
+      </html>
       <div class="box-popup-search ele-popup-search">
         <div class="box-search-overlay"></div>
         <div class="box-search-wrapper"><a class="btn-close-popup" href="#">
@@ -364,7 +347,8 @@
               <input name="q" class="form-control search-icon" type="text">
             </div>
           </form>
-          <div class="box-quick-search"><span class="text-17 neutral-medium-dark">Quick search:  </span><a class="text-17" href="#">T-Shirt</a><a class="text-17" href="#">Jeans</a></div>
+          
+          
           <div class="box-products-search mt-20">
             {% if recommended_products %}
             <h6 class="text-18-medium mb-10">You May Also Like</h6>
@@ -372,8 +356,8 @@
               {% for product in recommended_products %}
               <div class="item-product-search">
                 <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp rounded-2">
-                  <div class="cardImage"><a href="#"><img class="imageMain rounded-2" src="{{product.image.url}}" height="160" alt="guza"><img class="imageHover rounded-2" src="{{product.image2.url}}" alt="{{product.title}}"></a>
-                    <div class="button-select"><a href="#">Select Options</a></div>
+                  <div class="cardImage"><a href="{% url "core:listing-detail" product.pid %}"><img class="imageMain rounded-2" src="{{product.image.url}}" height="160" alt="{{product.title}}"><img class="imageHover rounded-2" src="{{product.image2.url}}" alt="{{product.title}}"></a>
+                    <div class="button-select"><a href="{% url "core:listing-detail" product.pid %}">Select Options</a></div>
                    
                   </div>
                   <div class="cardInfo">
@@ -386,21 +370,22 @@
 
             </div>
             {% else %}
+            
             <div class="box-list-product-search">
+              {% for c in categories %}
               <div class="item-product-search">
                 <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
-                  <div class="cardImage"><a href="#"><img class="imageMain" src="{% static 'assets/imgs/page/popup/product-1.png' %}" alt="guza"><img class="imageHover" src="{% static 'assets/imgs/page/popup/product-5.png' %}" alt="guza"></a>
-                    <div class="button-select"><a href="#">Select Options</a></div>
-                   
+                  <div class="cardImage"><a href="{% url "core:category-product-list" c.cid %}"><img  src="{{c.image.url}}" alt="{{c.title}}"></a>
                   </div>
                   <div class="cardInfo">
-                    <h6 class="text-16-medium">Pillow Covers Luxury</h6>
-                    <p class="body-p2 cardDesc">$24.00</p>
+                    <h6 class="text-16-medium">{{c.title}}</h6>
+                 
                   </div>
                 </div>
               </div>
-
+              {% endfor %}
             </div>
+           
             {% endif %}
           </div>
         </div>
@@ -446,7 +431,7 @@
                 </div>
                
                 <div class="form-group">
-                  <input class="form-control" type="tel" name="phone_number" placeholder="Phone Number">
+                  <input class="form-control" type="tel" pattern="0\d{9}" maxlength="11" name="phone_number" placeholder="Phone Number(digits only)">
                 </div>
                 <div class="form-group">
                   <input class="form-control" type="text" name="email" placeholder="Email">

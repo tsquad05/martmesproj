@@ -1,0 +1,61 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Privacy Policy - MartmesLtd{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+    <main class="main">
+      <section class="section block-head"> 
+        <div class="container"> 
+          <div class="text-center wow fadeInUp" > 
+            <style>
+              body {
+                  font-family: 'Poppins', sans-serif;
+              }
+              h1, h2, h3 {
+                  text-align: left;
+              }
+              p, ul {
+                  text-align: left;
+                  margin-bottom: 23px;
+              }
+          </style>
+          <h1>Privacy Policy</h1>
+          <p style="margin-top: 10px;">Last updated: March 27, 2024</p>
+          <p>Martmes Resources LTD ("us", "we", or "our") operates the website <a href="https://martmesltd.com">martmesltd.com</a> (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.</p>
+          <p>We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy.</p>
+      
+          <h2>Information Collection and Use</h2>
+          <p style="margin-top: 10px;">We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+      
+          <h2>Types of Data Collected</h2>
+          <h3 style="margin-top: 10px;">Personal Data</h3>
+          <p style="margin-top: 10px;">While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to:</p>
+          <ul>
+              <li>Email address</li>
+              <li>First name and last name</li>
+              <li>Phone number</li>
+              <li>Address, State, Province, ZIP/Postal code, City</li>
+          </ul>
+      
+          <h2>Use of Data</h2>
+          <p style="margin-top: 10px;">Martmes Resources LTD uses the collected data for various purposes:</p>
+          <ul>
+              <li>To provide and maintain the Service</li>
+              <li>To notify you about changes to our Service</li>
+              <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+              <li>To provide customer care and support</li>
+              <li>To provide analysis or valuable information so that we can improve the Service</li>
+              <li>To monitor the usage of the Service</li>
+              <li>To detect, prevent and address technical issues</li>
+          </ul>
+      
+          <h2>Changes to This Privacy Policy</h2>
+          <p style="margin-top: 10px;"> We may update our Privacy Policy from time to time. We will notify you of any changes by posting them on this page.</p>
+          <p>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update the "effective date" at the top of this Privacy Policy.</p>
+      
+</div>
+</div>
+</section>
+</main>
+{% endblock content %}

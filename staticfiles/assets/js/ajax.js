@@ -108,6 +108,46 @@ $(document).ready(function(){
         });
     });
 
+    $("#loadMore").click(function(){
+        var _currentProducts = $(".product-item").length;
+        var _limit = $(this).attr('data-limit');
+        var _total = $(this).attr('data-total');
+
+        $.ajax({
+            type: 'GET',
+          
+            url: '/load-more-data', 
+            data: {
+                limit: _limit,
+                offset: _currentProducts
+            },
+            dataType: 'json',
+            beforeSend: function() {
+                $("#loadMore").attr('disabled', true);
+                $(".load-more-icon").addClass('fa-spin');
+                $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            },
+            success: function(response) {
+                $(".load-more-icon").removeClass('fa-spin');
+                $('#LoadProducts').append(response.data)
+                
+                
+                $("#loadMore").attr('disabled',false);
+                var _totalShowing =  $(".product-item").length;
+                if (_totalShowing==_total){
+                    $("#loadMore").remove()
+                }
+              
+            },
+            error: function(error) {
+                // Handle error
+                console.log(error.responseText);
+                
+            },
+           
+        });
+    });
+
 })
 
 $(document).ready(function() {
@@ -184,10 +224,223 @@ $(document).ready(function() {
         });
     });
     
+    
 
 });
 
+function submitPasswordForm() {
+    var newPassword1 = document.getElementById("new_password1").value;
+    var newPassword2 = document.getElementById("new_password2").value;
+    var oldPassword = document.getElementsByName("old_password")[0].value;
+    var errorMessages = document.getElementById("errorMessages");
+  
+
+    // Clear previous error messages
+    errorMessages.innerHTML = "";
+
+    // Check if all fields are filled
+    if (newPassword1 === "" || newPassword2 === "" || oldPassword === "") {
+        errorMessages.innerHTML = "Please fill in all fields.";
+        return;
+    }
+
+    // Check if new password and confirm password match
+    if (newPassword1 !== newPassword2) {
+        errorMessages.innerHTML = "New password and confirm password do not match.";
+        return;
+    }
+    
+    if (newPassword1.length < 8) {
+        errorMessages.innerHTML = "Password must be at least eight characters long.";
+        return;
+    }
+    // If all validations pass, submit the form
+    var form = $('#passwordForm');
+    var submitBtn = $('#submitBtn');
+    $.ajax({
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
+        beforeSend: function(){
+            submitBtn.html('Resetting  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            submitBtn.attr('disabled', true);
+        },
+        success: function(response) {
+            // Handle success response
+            if (response.bool){
+                console.log(response);
+                submitBtn.attr('disabled', false);
+                submitBtn.html('Password updated');
+                $('#new_password1').hide()
+                $('#new_password2').hide()
+                $('#old_password').hide()
+                $('.hideDiv').hide()
+            }
+            else{
+                submitBtn.attr('disabled', false);
+                errorMessages.innerHTML = response.errors;
+                submitBtn.html('Invalid password');
+            }
+            
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            console.error(xhr.responseText);
+            submitBtn.attr('disabled', false); // Enable the button on error
+            errorMessages.innerHTML = 'Old password was entered incorrectly';
+            submitBtn.html('Invalid password');
+        }
+    });
+}
 
 
 
+
+function submitForm() {
+    var form = $('#chatDialog');
+    var formData = form.serialize();
+    var submitBtn = $('#startChat');
+    $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: formData,
+        beforeSend: function(){
+            
+            submitBtn.html('Sending message <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            submitBtn.attr('disabled', true);
+        },
+        success: function(data) {
+            if (data.success) {
+                // Success handling
+                $('#chatDialog').html('<span class="title">Your message has been sent</span>')
+
+            } else {
+                // Error handling
+                console.error('Error submitting inquiry:', data.errors);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', error);
+        }
+    });
+}
+function submitContactForm() {
+    var form = $('#ContactForm');
+    var formData = form.serialize();
+    var submitBtn = $('#contactSubmit');
+    $.ajax({
+        type: form.attr('method'),
+        url: '/submit-contact/',
+        data: formData,
+        beforeSend: function(){
+            
+            submitBtn.html('Sending message <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            submitBtn.attr('disabled', true);
+        },
+        success: function(data) {
+            if (data.success) {
+                // Success handling
+                $('#ContactForm').html('<h6 class="title">Your message has been sent successfully ✔</h6>')
+                submitBtn.attr('disabled', false);
+            } else {
+                // Error handling
+                $('#contactSubmit').html('<span class="title">Sending failed ×</span>')
+                submitBtn.attr('disabled', false);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', error);
+            submitBtn.attr('disabled', false);
+        }
+    });
+}
+
+$(document).ready(function() {
+    $('#chatDialog').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+        submitForm(); // Call the function to submit the form asynchronously
+    });
+    $('#ContactForm').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+        submitContactForm(); // Call the function to submit the form asynchronously
+    });
+});
+
+
+$(document).ready(function() {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    $('.mark-read-btn').click(function() {
+        var notificationId = $(this).data('notification-id');
+        $.ajax({
+            url: $(this).data('url'),
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Update UI to reflect the notification as read
+                    // For example, hide the "Mark as Read" button
+                    $(`.mark-read-btn[data-notification-id="${notificationId}"]`).hide();
+                } else {
+                    // Handle failure response
+                    $(`.mark-read-btn[data-notification-id="${notificationId}"]`).hide();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+});
+$(document).ready(function(){
+    $('#updateBtn').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: '/update-profile/',
+            data: $('#updateForm').serialize(),
+            beforeSend: function(){
+            
+                $('#updateBtn').html('Updating profile <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+                $('#updateBtn').attr('disabled', true);
+            },
+            success: function(response){
+                if(response.success){
+                    $('#full_name').val(response.full_name);
+                    $('#phone_number').val(response.phone_number);
+                    $('#updateBtn').html('Profile updated ✔ ');
+                    $('#updateBtn').attr('disabled', false);
+                    
+                } else {
+                    $('#updateBtn').html('Updating failed ×');
+                    $('#updateBtn').attr('disabled', false);
+                }
+            }
+        });
+    });
+
+    $('#productRow').click(function() {
+        var message = $(this).data('message');
+        var reply = $(this).data('reply');
+        $('#chatContent').text(message);
+        $('#replyContent').text(reply);
+        $('#productModal').modal('show');
+    });
+});
 

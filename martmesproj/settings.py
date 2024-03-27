@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-p^&9m-v^^!+5113stm^-l32!how=$)rg1r+c@mq%t^&e#h^x0r"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,10 +82,20 @@ WSGI_APPLICATION = "martmesproj.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres.vruhzvoeolhtwmpwtrvu',
+        'PASSWORD': '6MgOYsfCH1Aks0Rt',
+        'HOST': 'aws-0-us-west-1.pooler.supabase.com',
+        'PORT': '5432',
     }
 }
 
@@ -95,13 +105,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
@@ -138,7 +142,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'userauths.User'
 
-SENSITIVE_VARIABLE = "re_AMbQ5kae_93Ygti4MVgb5XmSuQnP4vaUe"
+SENSITIVE_VARIABLE = "re_XKERd4Zs_7YbCWHpaoPQbeA7YGZMjFgGg"
 
 
 

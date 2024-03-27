@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from userauths.models import User
+from userauths.models import User, Contact
 
 
 
@@ -23,3 +23,16 @@ class UserRegisterForm(forms.ModelForm):
     def clean_password2(self):
         # Since we're not using password2 field, return the password as confirmed password.
         return self.cleaned_data.get("password")
+    
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['email', 'first_name','last_name','message', 'contact']
+        widgets = {
+            'first_name': forms.TextInput(),
+            'last_name': forms.TextInput(),
+            'email': forms.EmailInput(),
+            'contact': forms.TextInput(),
+            'message': forms.Textarea(),
+        }

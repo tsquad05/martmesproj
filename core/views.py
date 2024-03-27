@@ -1,19 +1,26 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from .models import Product, ProductReview, Category, wishlist
-from .forms import ProductReviewForm
+from .models import Product, ProductReview, Category, wishlist, ClientChat, Notification, Address
+from .forms import ProductReviewForm, ClientChatForm, UpdateProfileForm
 from django.db.models import Avg
 from taggit.models import Tag
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.text import slugify
+from django.template.loader import render_to_string
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from userauths.forms import ContactForm
 # Create your views here.
+
+
+
 def index(request):
     products = Product.objects.filter(
-        Q(category__in=[2, 3, 8, 5, 6, 4, 7]) &  # Filter by categories
-        Q(product_status="published", featured=True)  # Additional filters
+        Q(category__in=[1, 3, 8, 5, 6, 4, 7]) &  # Filter by categories
+        Q(product_status="published")  # Additional filters
     )
-    automobiles = products.filter(category=2)[:5]
+    automobiles = products.filter(category=1)[:5]
     real_estate = products.filter(category=3)[:3]
     rentage = products.filter(category=8)[:1]
     furnitures = products.filter(category=5)[:1]
@@ -62,6 +69,7 @@ def automobile_view(request):
 
 def automobile_detail_view(request,pid):
     product = Product.objects.get(pid=pid)
+    wishlist_count = wishlist.objects.filter(product=product).count()
     item_views = request.session.get('item_views', {})
     wishlist_entry = None
     if request.user.is_authenticated:
@@ -77,29 +85,30 @@ def automobile_detail_view(request,pid):
 
     # product review form 
     review_form = ProductReviewForm()
-    make_review = True
+    make_chat = True
 
     if request.user.is_authenticated:
-        user_review_count = ProductReview.objects.filter(user=request.user, product=product).count()
-        if user_review_count > 0:
-            make_review = False
+        user_chat_count = ClientChat.objects.filter(user=request.user, product=product).count()
+        if user_chat_count > 0:
+            make_chat = False
     context = {
         "p": product,
-        "make_review": make_review,
+        "make_chat": make_chat,
         "p_image": p_image,
         "products": products,
         "reviews": reviews,
         "review_form": review_form,
         "average_rating": average_rating,
         "wishlist_entry": wishlist_entry,
+        'wishlist_count': wishlist_count,
     }
     return render(request, "core/product-single.html", context)
 
 
 def category_product_list_view(request, cid):
     category = Category.objects.get(cid=cid)
-    products = Product.objects.filter(product_status= "published", category=category)
-   
+    products = Product.objects.filter(product_status= "published", category=category)[:12]
+    total_data = Product.objects.filter(product_status= "published", category=category).count()
     sort_by = request.GET.get('sort_by', 'default')
 
 
@@ -110,6 +119,8 @@ def category_product_list_view(request, cid):
     context = {
         "category": category,
         "products": products,
+        "total_data":total_data,
+
     }
     return render(request, "core/category-product-list.html", context)
 
@@ -172,6 +183,19 @@ def view_wishlist(request):
 def contact_view(request):
     return render(request, "core/contact.html")
 
+def submit_contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True,})
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'errors': errors})
+    else:
+        return JsonResponse({'success': False, 'errors': 'Invalid request method'})
+
+
 def about_view(request):
     return render(request,"core/about.html")
 
@@ -196,3 +220,98 @@ def search_view(request):
         items = Product.objects.all()
 
     return render(request, 'core/search.html', {'products': items, "query": query, "category_title": category_title,"category":category })
+
+#load more
+def load_more(request):
+    offset = int(request.GET['offset'])
+    limit = int(request.GET['limit'])
+    data = Product.objects.all().order_by('-id')[offset:offset+limit]
+    t = render_to_string('ajax/category-product-list.html',{'data': data})
+    return JsonResponse({'data':t})
+
+
+def submit_inquiry(request):
+    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        form = ClientChatForm(request.POST)
+        if form.is_valid():
+            inquiry = form.save()
+           
+            return JsonResponse({'success': True})
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'errors': errors})
+    else:
+        return JsonResponse({'success': False, 'errors': 'Invalid request method'})
+    
+
+def account_settings(request):
+    return render(request, 'user/account-settings.html')
+
+def update_password(request):
+
+    return render(request, 'user/login-and-security.html')
+
+def change_password(request):
+    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, request.user)
+            return JsonResponse({'message': 'Password updated successfully', 'bool': True}, status=200)
+        else:
+            errors = form.errors
+            return JsonResponse({'errors': errors, 'bool':False}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method', 'bool':False}, status=405)
+    
+
+
+
+def notifications(request):
+    user = request.user
+    notifications = user.notifications.all()
+    return render(request, 'user/notifications.html', {'notifications': notifications})
+
+
+def mark_as_read(request, notification_id):
+    notification = get_object_or_404(Notification, pk=notification_id)
+    if notification.recipient == request.user:
+        notification.mark_as_read()
+    return redirect('core:notifications')
+
+def account_info(request):
+    return render(request, 'user/account-info.html')
+
+
+def update_profile(request):
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save()
+            response_data = {
+                'success': True,
+                'full_name': user.full_name,
+                'phone_number': user.phone_number
+            }
+            return JsonResponse(response_data)
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'errors': errors})
+    else:
+        form = UpdateProfileForm(instance=request.user)
+    return render(request, 'update_profile.html', {'form': form})
+
+def chat_page(request):
+    chats = ClientChat.objects.filter(user=request.user)
+    context = {
+        'chats': chats
+    }
+    return render(request, 'user/chat-page.html', context)
+
+
+def terms(request):
+    return render(request, "core/terms.html")
+
+
+def privacy(request):
+    return render(request, "core/privacy.html")

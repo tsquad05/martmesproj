@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import inlineformset_factory
 from django import forms
 
-from .models import Category, Product, ProductImages, ProductReview, wishlist, Address, CartOrderItems, CartOrder, House
+from .models import Category, Product, ProductImages, ProductReview, wishlist, Address, CartOrderItems, CartOrder, House, ClientChat, Notification
 # Register your models here.
 
 HouseInlineFormSet = inlineformset_factory(Product, House, fields=('num_bedrooms', 'num_parking_spaces', 'num_bathrooms','num_toilets'), extra=1)
@@ -46,7 +46,5 @@ class ProductReviewAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductReview, ProductReviewAdmin)
-admin.site.register(CartOrder, CartOrderAdmin)
-admin.site.register(wishlist, WishlistAdmin)
-
-
+admin.site.register(ClientChat)
+admin.site.register(Notification)

@@ -10,7 +10,9 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from django.conf import settings
-
+from django.utils import timezone
+from django.urls import reverse
+from django.utils.dateformat import format
           
 cloudinary.config( 
   cloud_name = getattr(settings, 'CLOUD_NAME', None), 
@@ -93,8 +95,8 @@ class Product(models.Model):
     # description = models.TextField(null=True, blank=True, default="This is the product")
     description = RichTextUploadingField(null=True, blank=True, default="This is the product")
     
-    price = models.DecimalField(max_digits=9999999999, decimal_places=2, default="0.99")
-    consultant_price = models.DecimalField(max_digits=9999999999, decimal_places=2, default="1.99")
+    price = models.DecimalField(max_digits=100, decimal_places=2, default="0.99")
+    consultant_price = models.DecimalField(max_digits=100, decimal_places=2, default="1.99")
     specifications = models.TextField(null=True, blank=True)
     # specifications = RichTextUploadingField(null=True, blank=True)
     
@@ -106,7 +108,6 @@ class Product(models.Model):
 
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
-    featured = models.BooleanField(default=False)
     sku = ShortUUIDField(unique=True, length=10, max_length=20, prefix="sku", alphabet="1234567890") 
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)
@@ -228,7 +229,6 @@ class wishlist(models.Model):
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=100, null=True)
-    status = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Address"
@@ -243,3 +243,48 @@ class House(models.Model):
     num_bathrooms = models.PositiveIntegerField(default=0)
     num_toilets = models.PositiveIntegerField(default=0)
 
+def ordinal(day):
+    if 10 <= day % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+    return str(day) + suffix
+
+def custom_strftime(t):
+    return "{}, {} {} {}, at {}:{} {}".format(
+        ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][t.weekday()],
+        ordinal(t.day),
+        ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][t.month-1],
+        t.year,
+        t.strftime('%I'),
+        t.strftime('%M'),
+        t.strftime('%p').lower()
+    )
+
+class ClientChat(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    message = models.TextField()
+    reply = models.TextField(blank=True, null=True)
+    date_sent = models.DateTimeField(default=timezone.now)
+    is_read = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return f"Inquiry from {self.user.full_name} on {custom_strftime(self.date_sent)}"
+    class Meta:
+        verbose_name_plural = "Inquiries from client"
+
+
+class Notification(models.Model):
+    message = models.TextField()
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def mark_as_read(self):
+        self.is_read = True
+        self.save()
+
+    def __str__(self):
+        return self.message

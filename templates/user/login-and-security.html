@@ -1,0 +1,211 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Login & Security - MartmesLtd{% endblock title %}
+{% block content %}
+    <main class="main">
+        <style>
+            .header-text-martmesltd{
+                font-size: 2rem !important;
+                line-height: 2.25rem !important;
+                font-weight: 600 !important;
+                color: #222222 !important;
+            }
+            ._184uai1 {
+                font-size: 1.125rem !important;
+                line-height: 1.5rem !important;
+                font-weight: 400 !important;
+                color: #222222 !important;
+                margin-top: 8px !important;
+                margin-bottom: 16px !important;
+            }
+            .card{
+                box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+                border: none !important;
+            }
+            
+            a:hover, a:hover * {
+                color: #222222;
+            }
+            .card-title{
+                font-size: 21px;
+                margin-bottom: 30px;
+            }
+            .card-text{
+                font-size: 12px;
+                font-weight: 300;
+                
+            }
+            .form {
+                background-color: #fff;
+                display: block;
+                padding: 1rem;
+                max-width: 350px;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+              }
+              
+              .form-title {
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+                font-weight: 600;
+                text-align: center;
+                color: #000;
+              }
+              
+              .input-container {
+                position: relative;
+              }
+              
+              .input-container input, .form button {
+                outline: none;
+                border: 1px solid #e5e7eb;
+                margin: 8px 0;
+              }
+              
+              .input-container input {
+                background-color: #fff;
+                padding: 1rem;
+                padding-right: 3rem;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                width: 300px;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+              }
+              
+              .input-container span {
+                display: grid;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                place-content: center;
+              }
+              
+              .input-container span svg {
+                color: #9CA3AF;
+                width: 1rem;
+                height: 1rem;
+              }
+              
+              .submit {
+                display: block;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+                background-color: #4F46E5;
+                color: #ffffff;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                font-weight: 500;
+                width: 60%;
+                border-radius: 0.5rem;
+                
+              }
+              
+              .signup-link {
+                color: #6B7280;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                text-align: center;
+              }
+              
+              .signup-link a {
+                text-decoration: underline;
+              }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const toggleFormLink = document.getElementById('toggleFormLink');
+                const passwordForm = document.getElementById('passwordForm');
+                const cardText = document.getElementById('cardText');
+            
+                toggleFormLink.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent the default anchor behavior
+            
+                    if (passwordForm.style.display === 'none') {
+                        passwordForm.style.display = 'block';
+                        toggleFormLink.textContent = 'Close';
+                        cardText.style.display = 'none';
+                    } else {
+                        passwordForm.style.display = 'none';
+                        toggleFormLink.textContent = 'Update';
+                        cardText.style.display = 'flex';
+                    }
+                });
+            });
+            
+        </script>
+        <div class="container mb-50 " style="padding-top: 50px !important;"> 
+            <div class="row">
+                <div class="col-sm-1 mb-10">
+                </div>
+                
+                <div class="col-sm-9 mb-30">
+                    <div class="breadcrumbs mb-10"> 
+                        <ul>
+                            <li>
+                               <a href="{% url "core:account_settings" %}"> Account</a>
+                            </li>
+                            <li>
+                                Login & Security
+                            </li>
+                        </ul>
+                    </div>
+                    <h1 class="header-text-martmesltd">Login & Security</h1>
+                    {% comment %} <h3 class="_184uai1"><span style="font-weight: 600;">Update Password</span></h3> {% endcomment %}
+                </div>
+                <div class="col-sm-1 mb-10">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-6 mb-20 mb-sm-0">
+                    
+                    <div class="card">
+                        <div class="card-body">
+                        <h4 class="card-title">Login</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h6 style="font-size: 16px; font-weight: 500;">Password</h6>
+                            <a  id="toggleFormLink" style="font-size: 16px; text-decoration: underline; color: #ea964a; cursor: pointer;">Update</a>
+                        </div>
+                        
+                        <p class="card-text" id="cardText">Update your password.</p>
+                        
+                        </div>
+                        <div id="errorMessages" style="padding-left: 15px; font-size: 12px; color: red; font-weight: 300;"></div>
+                        <form class="form" id="passwordForm" style="display: none;" method="POST" action="{% url "core:change-password" %}">
+                            {% csrf_token %}
+                            <div class="input-container">
+                                <label style="font-weight: 400;" class="hideDiv">Current password</label>
+                                <input type="password" name="old_password" id="old_password">
+                            </div>
+                            <div class="input-container">
+                                <label style="font-weight: 400;" class="hideDiv">New password</label>
+                                <input type="password" name="new_password1" id="new_password1">
+                            </div>
+                            <label style="font-weight: 400;" class="hideDiv">Confirm password</label>
+                            <div class="input-container">
+                                <input type="password" name="new_password2" id="new_password2">
+                            </div>
+                            <button class="submit" type="button" id="submitBtn" onclick="submitPasswordForm()">
+                                Update password
+                            </button>
+                        </form>
+                        
+                    </div>
+                    
+                    
+ 
+             
+                </div>
+              
+              
+        </div>
+    </main>
+  {% endblock content %}

@@ -1,0 +1,164 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Your Chats - MartmesLtd{% endblock title %}
+{% block content %}
+<main class="main">
+    
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">Client Chat & Reply</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="chat-card">
+                
+                <div class="chat-body">
+                    
+                    <div class="message outgoing" >
+                    <p id="chatContent"></p>
+                    </div>
+                    <div class="message incoming" >
+                    <p id="replyContent"></p>
+                    </div>
+                    
+                </div>
+               
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <section class="section block-open-positions">
+      <div class="container"> 
+        {% if chats %}
+        <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Name</th>
+                  
+          
+                  <th scope="col">Read</th>
+                  <th scope="col">Details</th>
+                
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for c in chats %}
+                <tr  >
+                  <td data-label="Job Title">
+                    <a href="{% url "core:listing-detail" c.product.pid %}">
+                    <img alt="..." src="{{c.product.image.url}}" height="100" class="rounded-2 me-2">
+                    </a>
+                  </td>
+                  <td data-label="Name">
+                    <a href="{% url "core:listing-detail" c.product.pid %}" style="font-size: 13px;">{{c.product.title|truncatechars:"15"}}</a>
+                  </td>
+              
+                 
+                  <td data-label="Company">
+                    {% if c.is_read %}
+                    <span class="badge bg-opacity-30 bg-success text-success">10/10</span>
+                    {% else %}
+                    <span class="badge bg-opacity-30 bg-warning text-warning">10/10</span>
+                    {% endif %}
+                  </td>
+                  {% comment %} <td data-label="Message">
+                    <span style="font-size: 13px;">{{c.message|truncatechars:"25"}}</span>
+                  </td> {% endcomment %}
+                  <td data-label="Details">
+                    <a style="font-size: 13px; text-decoration: underline; color: #EA964A;" id="productRow" data-message="{{ c.message }}" data-reply="{{ c.reply|default:"We'll reply soon..." }}" href="#" >View</a>
+                  </td>
+                  
+                  
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+        </div>
+        {% else %}
+        <h3 style="margin-top: 70px;margin-bottom: 100px;">No recents chat</h3>
+        {% endif %}
+      </div>
+    </section>
+
+  </main>
+
+<style>
+    .chat-card {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      
+      .chat-body {
+        padding: 20px;
+      }
+      
+      .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        
+      }
+      
+      .incoming {
+        background-color: #e1e1e1;
+        width: fit-content;
+      }
+      
+      .outgoing {
+        background-color: #f2f2f2;
+        text-align: right;
+        margin-left: auto;
+        width: fit-content;
+      }
+      
+      .message p {
+        font-size: 14px;
+        color: #333;
+        margin: 0;
+        
+      }
+      
+
+      
+
+      
+      @keyframes chatAnimation {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+      
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .chat-card .message {
+        animation: chatAnimation 0.3s ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 0.1s;
+      }
+      
+      .chat-card .message:nth-child(even) {
+        animation-delay: 0.2s;
+      }
+      
+      .chat-card .message:nth-child(odd) {
+        animation-delay: 0.3s;
+      }
+      
+</style>
+  {% endblock content %}

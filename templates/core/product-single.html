@@ -66,14 +66,74 @@
             
             <div class="col-lg-6">
               <div class="box-product-info">
-                {% comment %} <p class="body-p2 viewed-guest"><span class="text-17-medium tone-red">{{view_count}} guests</span>are viewing this product</p> {% endcomment %}
+                {% if wishlist_count < 2 %}
+                {% else %}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>  <span class="text-17-medium tone-green" style="color: #e67817;">  {{wishlist_count}} users liked this listing.</span></p>
+                {% endif %}
                 <h3 class="mb-10 mt-15">{{p.title}}</h3>
                 <div class="block-price"><span class="price-main mt-5">₦{{p.price|floatformat:0|intcomma}}</span></div>
                 <div class="block-description">
                   <p class="body-p2 neutral-medium-dark">{{p.specifications}}</p>
                 </div>
                
-        
+        <style>
+          .form {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 10px;
+            width: 300px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 30px 30px -30px rgba(27, 26, 26, 0.315);
+          }
+          
+          .form .title {
+            color: #54438d;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            line-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .form input {
+            outline: 0;
+            border: 1px solid rgb(219, 213, 213);
+            padding: 8px 14px;
+            border-radius: 8px;
+            width: 100%;
+            height: 50px;
+          }
+          
+          .form textarea {
+            border-radius: 8px;
+            height: 100px;
+            width: 100%;
+            resize: none;
+            outline: 0;
+            padding: 8px 14px;
+            border: 1px solid rgb(219, 213, 213);
+          }
+          
+          .form button {
+            align-self: flex-end;
+            padding: 8px;
+            outline: 0;
+            border: 0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #54438d;
+            color: #fff;
+            cursor: pointer;
+          }
+              
+        </style>
                 <div class="block-quantity mb-5">
                   <div class="box-form-cart">
                     {% if user.is_authenticated %}
@@ -114,16 +174,75 @@
                     {% endif %}
                   </div>
                 </div>
+                {% if user.is_authenticated %}
+                {% if make_chat %}
+                <a class="btn" id="showDialog" style=" width: 250px; height: 40px; padding-top: 8px; padding-bottom: 10px; margin-top: 10px; background: transparent; border: 1px solid brown;"  onclick="showChatDialog()" >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 7H17" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7 11H11" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M3 5V20.7929C3 21.2383 3.53857 21.4614 3.85355 21.1464L7.70711 17.2929C7.89464 17.1054 8.149 17 8.41421 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5Z" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  Start chat
+                </a>
+                {% else %}
+                {% endif %}
+                {% else %}
+                
+                <a class="btn account-icon account"  style=" width: 250px; height: 40px; padding-top: 8px; padding-bottom: 10px; margin-top: 10px; background: transparent; border: 1px solid brown;" >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 7H17" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M7 11H11" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M3 5V20.7929C3 21.2383 3.53857 21.4614 3.85355 21.1464L7.70711 17.2929C7.89464 17.1054 8.149 17 8.41421 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5Z" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  Start chat
+                </a>
+                {% endif %}
+                {% if make_chat %}
+                <form class="form" id="chatDialog" method="POST" action="{% url 'core:submit_inquiry' %}" style="display: none;">
+                  {% csrf_token %}
+                  <span class="title">Your message <svg width="16" height="16"   onclick="hideChatDialog()" style="margin-left: 15px; font-weight: 600; cursor: pointer;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L19 19M5 19L19 5" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                  <div>
+                    <button type="button" style="background: transparent; border: 1px solid #54438d; color: #54438d; font-size: 10px; font-weight: 400;" onclick="fillSuggestion('Can i get more details about this?')">More details</button>
+                    <button type="button" style="background: transparent; border: 1px solid #54438d; color: #54438d; font-size: 10px; font-weight: 400;" onclick="fillSuggestion('Is this still available?')">Is this available</button>
+                    <button type="button" style="background: transparent; border: 1px solid #54438d; color: #54438d; font-size: 10px; font-weight: 400;"  onclick="fillSuggestion('Is this bargainable?')">Last price</button>
+                  </div>
+                  <textarea id="messageTextarea" name="message" placeholder="Your message"></textarea>
+                  <input type="hidden" name="product" value="{{ p.id }}">
+                  <input type="hidden" name="user" value="{{ request.user.id }}">
+                  <button type="submit" id="startChat">Start chat</button>
+              </form>
+              {% else %}
+              {% endif %}
+              <script>
+                function showChatDialog() {
+                  // Hide the "Start chat" button
+                  document.getElementById("showDialog").style.display = "none";
+                  
+                  // Show the chat dialog
+                  document.getElementById("chatDialog").style.display = "flex";
+                }
+                function hideChatDialog() {
+                  // Hide the "Start chat" button
+                  document.getElementById("showDialog").style.display = "block";
+                  
+                  // Show the chat dialog
+                  document.getElementById("chatDialog").style.display = "none";
+                }
+                function fillSuggestion(suggestion) {
+                  // Fill the textarea with the selected suggestion
+                  document.getElementById("messageTextarea").value = suggestion;
+                }
+              </script>
                 <div class="block-shipping">
-                  <div class="free-shipping mb-15">Save big with Martmes</div>
+                  <div class="free-shipping mb-10">Save big with Martmes</div>
                   <div class="time-shipping mb-15">Fast & Secure Checkout</div>
-                  <div class="time-shipping mb-15">60 - Days Returns Learn More</div>
-
                 </div>
-                <div class="block-share"><a class="campage body-p2 mr-30" href="#">Campage</a><a class="link-share body-p2" id="copyButton"  style="cursor: pointer;">Share</a></div>
+                <div class="block-share"><a class="campage body-p2 mr-30" href="#">Compare</a><a class="link-share body-p2" id="copyButton"  style="cursor: pointer;">Share</a></div>
                 <div class="block-tags-product">
                   <p class="body-p2 mb-15"><span class="neutral-medium-dark">SKU: </span><span class="neutral-dark">{{p.sku}}</span></p>
+                  {% if p.tags %}
                   <p class="body-p2 mb-15"><span class="neutral-medium-dark">Tags: </span><a class="neutral-dark" href="#">{% for tag in p.tags.all %}<a href="{% url 'core:tags' tag.slug %}" rel="tag">#{{tag.name}}, {% endfor %}</a></p>
+                  {% endif %}
                 </div>
 
               </div>
@@ -144,7 +263,7 @@
                 close: true,
                 gravity: 'top',
                 position: 'center',
-                backgroundColor: '#0d6efd',
+                background: '#0d6efd',
                 stopOnFocus: true
             }).showToast();
           });
@@ -253,7 +372,7 @@
                   <div class="box-quick-button">
                     {% if request.user.is_authenticated %}
                     {% if p.in_wishlist %}
-                      <a class="btn btn-wishlist" style="cursor: pointer;">
+                      <a class="btn " style="cursor: pointer;">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4454 20.7608L3.57617 12.5663C1.35964 10.2582 1.49922 6.4736 3.87922 4.34929C6.24035 2.24181 9.82044 2.65105 11.6863 5.24171L12 5.67724L12.3137 5.24171C14.1796 2.65105 17.7596 2.24181 20.1208 4.34929C22.5008 6.4736 22.6404 10.2582 20.4238 12.5663L12.5546 20.7608C12.2483 21.0797 11.7517 21.0797 11.4454 20.7608Z" stroke="rgba(0,0,0,0.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                       </a>
                     {% else %}

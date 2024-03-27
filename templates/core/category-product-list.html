@@ -47,26 +47,7 @@
             <div class="show-sm show-lg"> <a class="btn-open-filter" href="#">Filter </a></div>
             <div class="wrapper-overlay"></div>
             <div class="box-filters box-filters-left"> <span class="body-p2 neutral-medium-dark">Filter by</span>
-              <div class="dropdown dropdown-sort">
-                <button class="btn dropdown-toggle" id="dropdownCat" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</button>
-                <div class="dropdown-menu dropdown-menu-light dropdown-menu-filter dropdown-menu-category" aria-labelledby="dropdownCat" style="margin: 0px;">
-                  <div class="box-dropdown-filter">
-                    <h6 class="head-filter">Categories</h6>
-                    <div class="box-collapse">
-                      <ul class="list-filter-checkbox"> 
-                        {% for c in categories %}
-                        <li> 
-                          <label class="cb-container">
-                            <input type="checkbox"><span class="text-small">{{c.title}}</span><span class="checkmark"></span>
-                          </label>
-                        </li>
-                        {% endfor %}
-
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
 
               <div class="dropdown dropdown-sort">
                 <button class="btn dropdown-toggle" id="dropdownRrice" type="button" data-bs-toggle="dropdown" aria-expanded="false">Price</button>
@@ -102,35 +83,6 @@
               </div>
             </div>
             <div class="box-sort"> 
-              
-              <form id="sort-form" method="GET" >
-                <div class="box-sortby d-flex align-items-center">
-                    <div class="dropdown dropdown-sort">
-                        <button class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">Default Sorting</button>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort" style="margin: 0px;">
-                            <li><a class="dropdown-item" href="#" data-sort="default">Default Sorting</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="oldest">Oldest products</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="newest">Newest products</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-            
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.querySelectorAll('.dropdown-item').forEach(function(item) {
-                        item.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            var sortOption = this.dataset.sort;
-                            console.log(sortOption);
-                            document.getElementById('sort-form').action = "{% url 'core:category-product-list' category.cid %}?sort_by=" + sortOption;
-                            document.getElementById('dropdownSort').innerText = this.innerText;
-                            document.getElementById('sort-form').submit();
-                        });
-                    });
-                });
-            </script>
-            
           
               <div class="box-view-style"> <a class="view-type view-2" href="#" data-col="2"></a><a class="view-type view-3 active" href="#" data-col="3"></a><a class="view-type view-4" href="#" data-col="4"></a><a class="view-type view-5" href="#" data-col="5"></a></div>
             </div>
@@ -145,13 +97,13 @@
                 <h6 class="item-collapse">Categories</h6>
                 <div class="box-collapse scrollFilter">
                   <ul class="list-filter-checkbox"> 
-                    {% for c in categories %}
+                    
                     <li> 
                       <label class="cb-container">
-                        <input type="checkbox"><span class="text-small">{{c.title}}</span><span class="checkmark"></span>
+                        <input type="checkbox"><span class="text-small"></span><span class="checkmark"></span>
                       </label>
                     </li>
-                    {% endfor %}
+                   
                   </ul>
                 </div>
               </div>
@@ -187,11 +139,11 @@
           </div>
         </div>
         <div class="container">
-          <div class="box-your-filter box-your-filter-shop2">
+          {% comment %} <div class="box-your-filter box-your-filter-shop2">
             <div class="block-text-filter"><span class="body-p2 neutral-medium-dark">Filter</span></div>
             <div class="block-ele-filter"><a class="btn btn-tag-filter" href="#">XS<span class="close-tag"></span></a><a class="btn btn-tag-filter" href="#">Women<span class="close-tag"></span></a><a class="clear-filter link-underline" href="#">Clear All</a></div>
-          </div>
-          <div class="box-list-products box-list-products-4 box-list-products-shop-2">
+          </div> {% endcomment %}
+          <div class="box-list-products box-list-products-4 box-list-products-shop-2" id="LoadProducts">
             {% for p in products %}
             <div class="product-item">
               <div class="cardProduct wow fadeInUp rounded-2">
@@ -250,6 +202,8 @@
             {% endfor %}
 
           </div>
+          <div class="text-center mt-50"><a class="btn btn-border" style="cursor: pointer;" id="loadMore" data-limit="12" data-total="{{total_data}}">
+            Load More  <i class="fa fa-sync load-more-icon"></i></a> </div>
 
         </div>
       </section>

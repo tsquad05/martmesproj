@@ -1,0 +1,45 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Your Notifications - MartmesLtd{% endblock title %}
+{% block content %}
+<main class="main">
+    
+
+
+    <section class="section block-open-positions">
+      <div class="container"> 
+        <div class="text-center"> 
+          <h6 class="text-17-medium primary-navy  mb-15 wow fadeInLeft">Welcome {{user.full_name|capfirst}}!</h6>
+          <h3 class="mb-65 wow fadeInRight">Your notifications</h3>
+        </div>
+        <div class="mt-60"> 
+        {% if notifications %}
+        {% for notification in notifications %}
+       
+          <div class="box-open"> 
+            <div class="open-info"> 
+              <h6>{{notification.created_at|date:'d M, Y'}}</h6>
+              <p class="body-p2 neutral-medium">{{ notification.message }}</p>
+            </div>
+            {% if not notification.is_read %}
+            <div class="open-button"><a class="btn btn-black mark-read-btn" style="font-size: 12px;" data-url="{% url 'core:mark_as_read' notification.id %}" data-notification-id="{{ notification.id }}">Mark as read</a></div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% else %}
+        <div class="box-open"> 
+            <div class="open-info"> 
+              <h6>No Notifications</h6>
+              
+            </div>
+           
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  {% endblock content %}

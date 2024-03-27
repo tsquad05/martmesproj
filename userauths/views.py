@@ -135,3 +135,5 @@ def process_password_reset(request):
 @password_reset_cooldown_required
 def password_reset_cooldown(request):
     return render(request, 'password/password_reset_cooldown.html')
+
+

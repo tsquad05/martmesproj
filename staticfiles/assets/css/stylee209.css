@@ -29,7 +29,8 @@ TABLE CONTENT
 @import url(https://fonts.bunny.net/css?family=jost:400,500,600,700|cormorant:400,500,700|quicksand:400,500,700|eb-garamond:400,500,600|fjalla-one:400|bebas-neue:400|family=poppins:400,800,900);
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&amp;display=swap");
 @import url('https://fonts.cdnfonts.com/css/sofia-sans');
-
+@import url('https://fonts.cdnfonts.com/css/unbounded');
+                
 /*import vendors*/
 @import url(vendors/normalize.css);
 @import url(vendors/bootstrap.min.css);
@@ -298,7 +299,7 @@ body {
   font-size: 80px;
   line-height: 76px;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: "Unbounded", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -4499,6 +4500,7 @@ button:focus:not(:focus-visible) {
 }
 .transparent-navbar {
   background-color: transparent !important;
+  color: #ffffff !important;
   transition: background-color 0.3s ease;
 }
 .header.header-style-3 .header-menu {
@@ -12380,7 +12382,7 @@ quote {
   height: 600px;
   line-height: 600px;
   width: 100%;
-  background: url(../imgs/page/about1/banner.png) no-repeat top center;
+  background: url(../imgs/stock/lotus-design-n-print-wRzBarqn3hs-unsplash.jpg) no-repeat top center;
   background-size: cover;
   position: relative;
 }

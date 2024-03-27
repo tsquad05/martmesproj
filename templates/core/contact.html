@@ -2,6 +2,30 @@
 {% load static %}
 {% load humanize %}
 {% block content %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var headerNavbar = document.getElementById('header-navbar');
+    var threshold = 50; // Adjust this value as needed
+  
+    function updateNavbarBackground() {
+      if (window.scrollY <= threshold) {
+        headerNavbar.classList.remove('header-style-3');
+        headerNavbar.classList.add('transparent-navbar');
+        
+      } else {
+        headerNavbar.classList.remove('transparent-navbar');
+        headerNavbar.classList.add('header-style-3');
+      }
+    }
+  
+    updateNavbarBackground();
+  
+    window.addEventListener('scroll', function() {
+      updateNavbarBackground();
+    });
+  });
+  
+</script>
     <main class="main">
       <section class="section banner-500">
         <div class="box-cover-image wow fadeInUp"></div>
@@ -11,51 +35,52 @@
         </div>
       </section>
       <div class="section block-maps"> 
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25958.466260663557!2d-81.44280595924573!3d35.58312354977769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8856d2948d052daf%3A0xe3fa19c20612b365!2zTkMtMTAgSHd5LCBOZXd0b24sIE5DLCBIb2EgS-G7sw!5e0!3m2!1svi!2s!4v1683730972471!5m2!1svi!2s" width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.323363946881!2d6.993085474170126!3d4.885410895090365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069d18fd1178741%3A0xbd75affabf5f63af!2s79%20Rd%2010%2C%20Rumuodomaya%2C%20Port%20Harcourt%20500102%2C%20Rivers%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1711495376933!5m2!1sen!2sus" width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <section class="section block-form-contact">
         <div class="container"> 
           <div class="row"> 
             <div class="col-lg-5 mb-40 wow"> 
               <h4>Address</h4>
-              <p class="body-p2 neutral-medium-dark mb-45">8425 Melrose Ave, Los Angeles, CA 90069</p>
+              <p class="body-p2 neutral-medium-dark mb-45">Plot 79 road 10 akwaka Rumuodomaya Obio/Akpor LGA Rivers state</p>
               <h4 class="mb-20">Contact</h4>
               <p class="body-p2 neutral-medium-dark mb-10">Phone.  +1 970 429 4170</p>
               <p class="body-p2 neutral-medium-dark mb-45">Email.  hello@martmesltd.com</p>
              
-              <div class="socials mt-55 justify-content-start"><a class="ml-0" href="#"><img src="{% static 'assets/imgs/page/about1/fb.svg' %}" alt="Guza"></a><a href="#"><img src="{% static 'assets/imgs/page/about1/insta.svg' %}" alt="Guza"></a></div>
+              {% comment %} <div class="socials mt-55 justify-content-start"><a class="ml-0" href="#"><img src="{% static 'assets/imgs/page/about1/fb.svg' %}" alt="Guza"></a><a href="#"><img src="{% static 'assets/imgs/page/about1/insta.svg' %}" alt="Guza"></a></div> {% endcomment %}
             </div>
             
             <div class="col-lg-7 mb-40 wow fadeIn"> 
               <h4 class="mb-10">Get in Touch</h4>
-              <p class="text-16-medium neutral-medium mb-30">Required fields are marked *</p>
+              <p class="text-16-medium neutral-medium mb-30">Fill all required fields.</p>
               <form method="POST" id="ContactForm">
+                {% csrf_token %}
               <div class="row"> 
                 
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                   <div class="form-group"> 
-                    <input class="form-control" name="first_name" type="text" placeholder="First name *">
+                    <input class="form-control" name="first_name" type="text" placeholder="First name " required>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                   <div class="form-group"> 
-                    <input class="form-control" name="last_name" type="text" placeholder="Last name *">
+                    <input class="form-control" name="last_name" type="text" placeholder="Last name " required>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                   <div class="form-group"> 
-                    <input class="form-control" name="contact" type="tel" placeholder="Phone number *">
+                    <input class="form-control" name="contact" type="tel" placeholder="Phone number " required>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                   <div class="form-group"> 
-                    <input class="form-control" name="email" type="email" placeholder="Email *">
+                    <input class="form-control" name="email" type="email" placeholder="Email " required>
                   </div>
                 </div>
                
                 <div class="col-lg-12"> 
                   <div class="form-group"> 
-                    <textarea class="form-control" name="message" placeholder="Message" rows="6"></textarea>
+                    <textarea class="form-control" name="message" placeholder="Message" rows="6" required></textarea>
                   </div>
                 </div>
                 <div class="col-lg-12"> 

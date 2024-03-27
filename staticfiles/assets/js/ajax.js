@@ -18,7 +18,7 @@ $(document).ready(function(){
                     // You may want to redirect or update the page content here
                 } else {
                     // Registration failure
-                    $("#SignUpErrorMessage").text("Registration failed. Please check the email and phone field.");
+                    $("#SignUpErrorMessage").text("Registration failed. Please check the form.");
                     setTimeout(() => {
                         $("#SignUpErrorMessage").text("");
                     }, 5000);

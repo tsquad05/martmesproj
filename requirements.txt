@@ -10,3 +10,4 @@ pytz==2022.7
 resend==0.6.0
 django-pipeline== 2.1.0
 cloudinary==1.39.0
+django-taggit==4.0.0

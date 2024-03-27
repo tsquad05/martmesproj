@@ -106,7 +106,7 @@
               {% for p in automobiles %}
               <div class="col-lg-3 col-md-4 col-sm-6 col-6"> 
                 <div class="cardProduct wow fadeInUp">
-                  <div class="cardImage rounded-3"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain" src="{{p.image.url}}" alt="{{p.title}}"><img class="imageHover" src="{{p.image2.url}}" alt="{{p.title}}"></a>
+                  <div class="cardImage rounded-3"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain" src="{{p.image.url}}" fetchpriority="high" alt="{{p.title}}"><img class="imageHover" src="{{p.image2.url}}"  alt="{{p.title}}"></a>
                     
                     
                     <div class="box-quick-button">

@@ -14,7 +14,8 @@ $(document).ready(function(){
             success: function(response) {
                 if (response.success) {
                     // Registration success
-                    window.location.href = '/';
+                    window.location.reload();
+                    $(".form-register").html('<div class="alert alert-success" role="alert">Succcess ✔, redirecting..</div>');
                     // You may want to redirect or update the page content here
                 } else {
                     // Registration failure
@@ -51,8 +52,8 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
-
-                    window.location.reload()
+                    $(".form-login").html('<div class="alert alert-success" role="alert">Succcesfully logged in ✔, redirecting..</div>');
+                    window.location.reload();
                 } else {
                     // Login failure
                     $("#LoginErrorMessage").text(response.message);

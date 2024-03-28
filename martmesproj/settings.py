@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-p^&9m-v^^!+5113stm^-l32!how=$)rg1r+c@mq%t^&e#h^x0r"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -133,3 +133,4 @@ CKEDITOR_CONFIGS = {
 CLOUD_NAME = 'de3pm0yxc'
 API_KEY ='799178857418374'
 API_SECRET = 'DnfRY1QDLUMzELSeNyfTxgbMYN8'
+LOGIN_URL = '/sign-in/'

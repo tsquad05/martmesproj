@@ -1,8 +1,10 @@
 (function ($) {
     ("use strict");
     // Page lo                                                                                                                                                                                                                                                                                                                                                                                                               ading
-    $(window).on("load", function () {
-        $("#preloader-active").fadeOut("slow");
+    $(document).ready(function(){
+        setTimeout(() => {
+            $("#preloader-active").fadeOut("slow");
+        }, 5000);
     });
     
     /*-----------------

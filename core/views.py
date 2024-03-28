@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from userauths.forms import ContactForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -131,6 +132,7 @@ def category_list_view(request):
     }
     return render(request, 'core/category-list.html', context)
 
+@login_required
 def add_to_wishlist(request):
     product_id = request.POST.get('id')
     product = Product.objects.get(id=product_id)
@@ -153,6 +155,7 @@ def add_to_wishlist(request):
     }
     return JsonResponse(context)
 
+@login_required
 def delete_from_wishlist(request):
     if request.method == 'POST':
         product_id = request.POST.get('id')
@@ -171,6 +174,7 @@ def delete_from_wishlist(request):
         context = {"success": False, "error": "Invalid request method."}
         return JsonResponse(context)
 
+@login_required
 def view_wishlist(request):
     
     if request.user.is_authenticated:
@@ -207,19 +211,21 @@ def faq_view(request):
 def search_view(request): 
     query = request.GET.get('q')
     category_title = request.GET.get('category')
-    category = Category.objects.get(title=category_title)
-    if query:
-        if category_title:
-            items = Product.objects.filter(category__title=category_title, title__icontains=query)
+    try:
+        category = Category.objects.get(title=category_title)
+    except:
+        if query:
+            if category_title:
+                items = Product.objects.filter(category__title=category_title, title__icontains=query)
+            else:
+                items = Product.objects.filter(title__icontains=query)
+            request.session['search_query'] = query
+            request.session['search_results'] = list(items.values_list('id', flat=True))
+            return render(request, 'core/search.html', {'products': items, 'query': query, 'category': ''})
         else:
-            items = Product.objects.filter(title__icontains=query)
-        request.session['search_query'] = query
-        request.session['search_results'] = list(items.values_list('id', flat=True))
-        return render(request, 'core/search.html', {'products': items, 'query': query, 'category': category})
-    else:
-        items = Product.objects.all()
+            items = Product.objects.all()
 
-    return render(request, 'core/search.html', {'products': items, "query": query, "category_title": category_title,"category":category })
+        return render(request, 'core/search.html', {'products': items, "query": query, "category_title": category_title,"category":category })
 
 #load more
 def load_more(request):
@@ -243,14 +249,17 @@ def submit_inquiry(request):
     else:
         return JsonResponse({'success': False, 'errors': 'Invalid request method'})
     
-
+@login_required
 def account_settings(request):
     return render(request, 'user/account-settings.html')
 
+@login_required
 def update_password(request):
 
     return render(request, 'user/login-and-security.html')
 
+
+@login_required
 def change_password(request):
     if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         form = PasswordChangeForm(request.user, request.POST)
@@ -266,23 +275,25 @@ def change_password(request):
     
 
 
-
+@login_required
 def notifications(request):
     user = request.user
     notifications = user.notifications.all()
     return render(request, 'user/notifications.html', {'notifications': notifications})
 
-
+@login_required
 def mark_as_read(request, notification_id):
     notification = get_object_or_404(Notification, pk=notification_id)
     if notification.recipient == request.user:
         notification.mark_as_read()
     return redirect('core:notifications')
 
+
+@login_required
 def account_info(request):
     return render(request, 'user/account-info.html')
 
-
+@login_required
 def update_profile(request):
     if request.method == 'POST':
         form = UpdateProfileForm(request.POST, instance=request.user)
@@ -301,6 +312,7 @@ def update_profile(request):
         form = UpdateProfileForm(instance=request.user)
     return render(request, 'update_profile.html', {'form': form})
 
+@login_required
 def chat_page(request):
     chats = ClientChat.objects.filter(user=request.user)
     context = {

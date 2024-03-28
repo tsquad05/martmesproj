@@ -4,7 +4,7 @@
     $(document).ready(function(){
         setTimeout(() => {
             $("#preloader-active").fadeOut("slow");
-        }, 3000);
+        }, 5000);
     });
     
     /*-----------------

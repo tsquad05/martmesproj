@@ -7,16 +7,21 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var headerNavbar = document.getElementById('header-navbar');
+    var headerIcons = document.getElementById('searchiconmartmes');
+
+
     var threshold = 50; // Adjust this value as needed
   
     function updateNavbarBackground() {
       if (window.scrollY <= threshold) {
         headerNavbar.classList.remove('header-style-3');
         headerNavbar.classList.add('transparent-navbar');
+        headerIcons.style.color = "#fff";
         
       } else {
         headerNavbar.classList.remove('transparent-navbar');
         headerNavbar.classList.add('header-style-3');
+        
       }
     }
   

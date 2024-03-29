@@ -14,12 +14,11 @@ $(document).ready(function(){
             success: function(response) {
                 if (response.success) {
                     // Registration success
-                    window.location.reload();
-                    $(".form-register").html('<div class="alert alert-success" role="alert">Succcess ✔, redirecting..</div>');
+                    window.location.href = '/';
                     // You may want to redirect or update the page content here
                 } else {
                     // Registration failure
-                    $("#SignUpErrorMessage").text("Registration failed. Please check the form.");
+                    $("#SignUpErrorMessage").text("Registration failed. Please check the email and phone field.");
                     setTimeout(() => {
                         $("#SignUpErrorMessage").text("");
                     }, 5000);
@@ -52,8 +51,8 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
-                    $(".form-login").html('<div class="alert alert-success" role="alert">Succcesfully logged in ✔, redirecting..</div>');
-                    window.location.reload();
+
+                    window.location.reload()
                 } else {
                     // Login failure
                     $("#LoginErrorMessage").text(response.message);

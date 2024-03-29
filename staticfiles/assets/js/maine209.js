@@ -1,12 +1,9 @@
 (function ($) {
     ("use strict");
     // Page lo                                                                                                                                                                                                                                                                                                                                                                                                               ading
-    $(document).ready(function(){
-        setTimeout(() => {
-            $("#preloader-active").fadeOut("slow");
-        }, 5000);
+    $(window).on("load", function () {
+       $("#preloader-active").fadeOut("slow");
     });
-    
     /*-----------------
         Menu Stick
     -----------------*/

@@ -137,3 +137,5 @@ def password_reset_cooldown(request):
     return render(request, 'password/password_reset_cooldown.html')
 
 
+def redirect_sign_in(request):
+    return render(request, "userauths/sign-in.html")

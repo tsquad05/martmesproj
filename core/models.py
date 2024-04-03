@@ -63,6 +63,7 @@ class Category(models.Model):
     title = models.CharField(max_length=100)
     image = CloudinaryField()
     requires_payment = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -77,6 +78,8 @@ class Category(models.Model):
         # Set the bid to the slug
         self.cid = f"{slug}"
         super().save(*args, **kwargs)
+    def get_absolute_url(self):
+        return f'/categories/{self.pid}/'
     def __str__(self):
         return self.title
 
@@ -132,6 +135,8 @@ class Product(models.Model):
             self.pid = f"{slug}-{random_int}"
             self.first_save = True
         super().save(*args, **kwargs)
+    def get_absolute_url(self):
+        return f'/listings/listing/{self.pid}/'
     
 
 

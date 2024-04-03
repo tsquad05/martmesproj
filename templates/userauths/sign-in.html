@@ -1,0 +1,119 @@
+{% extends "partials/index-base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}Sign In - Martmes Resources Ltd{% endblock title %}
+{% block canonical %}<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">{% endblock canonical %} 
+{% block content %}
+<main class="main" >
+    <div class="box-home3-style" style="padding-top: 100px; margin-bottom: 300px; display:flex; justify-content: center; align-items: center;">
+        <div class="form" >
+            <div style="display: flex; align-items: center; justify-content: center; padding-bottom: 13px;">
+                <img alt="martmesltd" src="{% static 'assets/imgs/martmes-logo-removebg-preview.png' %}"  id="big-hidden" height="20">
+                <img alt="martmesltd" src="{% static 'assets/imgs/martmes-logo-removebg-preview-3.png' %}"  id="small-hidden" height="20">
+            </div>
+            <p class="form-title">Sign in to your account</p>
+            <p class="form-title" style="font-size: 1rem;">to continue</p>
+            <div class="input-container" style="margin-top: 30px;">
+           
+      
+            <a class="submit account-icon account" style="color: #fff;">
+                Sign in
+            </a>
+            <a class="submit account-icon account" style="margin-bottom: 30px; color: #fff;">
+            Sign up
+        </a>
+
+        <p class="signup-link" >
+           Or<br>
+            <a href="" style="background: #fff; border: 1px solid #fff;">Continue browsing</a>
+        </p>
+        </form>
+
+        <style>
+            .form {
+                background-color: #fff;
+                display: block;
+                padding: 3rem;
+                max-width: 450px;
+                border-radius: 0.5rem;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                max-height: 550px;
+            }
+            
+            .form-title {
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+                font-weight: 600;
+                text-align: center;
+                color: #000;
+            }
+            
+            .input-container {
+                position: relative;
+            }
+            
+            .input-container input, .form a {
+                outline: none;
+                border: 1px solid #000;
+                margin: 8px 0;
+                text-align: center;
+                background: #111111;
+            }
+            
+            .input-container input {
+                background-color: #fff;
+                padding: 1rem;
+                padding-right: 3rem;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                width: 300px;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            }
+            
+            .input-container span {
+                display: grid;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                place-content: center;
+            }
+            
+            .input-container span svg {
+                color: #9CA3AF;
+                width: 1rem;
+                height: 1rem;
+            }
+            
+            .submit {
+                display: block;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+                color: #ffffff;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                font-weight: 500;
+                width: 100%;
+                border-radius: 0.5rem;
+                cursor: pointer;
+            }
+            
+            .signup-link {
+                color: #6B7280;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                text-align: center;
+            }
+            
+            .signup-link a {
+                text-decoration: underline;
+            }
+        </style>
+    </div>
+</main>
+{% endblock content %}

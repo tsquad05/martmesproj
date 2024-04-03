@@ -71,7 +71,6 @@ def automobile_view(request):
 def automobile_detail_view(request,pid):
     product = Product.objects.get(pid=pid)
     wishlist_count = wishlist.objects.filter(product=product).count()
-    item_views = request.session.get('item_views', {})
     wishlist_entry = None
     if request.user.is_authenticated:
         wishlist_entry = wishlist.objects.filter(product=product, user=request.user).exists()

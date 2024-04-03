@@ -14,7 +14,10 @@ $(document).ready(function(){
             success: function(response) {
                 if (response.success) {
                     // Registration success
+                    $('.disForm').remove()
+                    
                     window.location.href = '/';
+                    $('.form-register').html('<p>Registration successfull, redirecting...</p>')
                     // You may want to redirect or update the page content here
                 } else {
                     // Registration failure
@@ -51,8 +54,10 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
-
+                    $('.form-group').remove()
+                    $('.form-register').html('<p>Login successfull, redirecting...</p>')
                     window.location.reload()
+                   
                 } else {
                     // Login failure
                     $("#LoginErrorMessage").text(response.message);

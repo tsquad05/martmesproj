@@ -137,3 +137,16 @@ def password_reset_cooldown(request):
     return render(request, 'password/password_reset_cooldown.html')
 
 
+def redirect_sign_in(request):
+    if request.user.is_authenticated:
+
+        # Get the 'next' parameter from the URL, defaulting to None
+        next_page = request.GET.get('next', None)
+
+        if next_page:
+            # If the 'next' parameter exists, redirect to that page
+            return redirect(next_page)
+        else:
+            return redirect('core:index')
+
+    return render(request, "userauths/sign-in.html")

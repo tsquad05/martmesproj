@@ -15,5 +15,6 @@ urlpatterns = [
     path('password-reset-success/', views.password_reset_success, name="password-reset-success"),
     path('password-reset-cooldown/', views.password_reset_cooldown, name='password_reset_cooldown'),
     path('logout', views.logout_view, name="logout"),
+    path('sign-in/', views.redirect_sign_in, name="login"),
 ]
  

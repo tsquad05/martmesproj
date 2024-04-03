@@ -425,6 +425,7 @@
                 <div class="form-group">
                   <button class="btn btn-black d-block" id="loginBtn">Login</button>
                 </div>
+                
               </div>
             </form>
 
@@ -432,22 +433,22 @@
               <p id="SignUpErrorMessage" class="text-danger pt-2"></p>
               {% csrf_token %}
               <div class="form-register">
-                <div class="form-group">
+                <div class="form-group disForm">
                   <input class="form-control" type="text" name="full_name" placeholder="Full Name" required>
                 </div>
                
-                <div class="form-group">
+                <div class="form-group disForm" >
                   <input class="form-control" type="tel" pattern="0\d{10}" maxlength="11" name="phone_number" placeholder="Phone Number (digits only)">
                 </div>
-                <div class="form-group">
+                <div class="form-group disForm">
                   <input class="form-control" type="text" name="email" placeholder="Email" required>
                   <span id="email_error"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group disForm">
                   <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
                
-                <div class="form-group">
+                <div class="form-group disForm" >
                   <button class="btn btn-black d-block" id="registerBtn" type="submit">Create my account</button>
                 </div>
                 {% comment %} <div class="text-center">

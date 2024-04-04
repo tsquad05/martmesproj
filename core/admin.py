@@ -4,7 +4,10 @@ from django import forms
 
 from .models import Category, Product, ProductImages, ProductReview, wishlist, Address, CartOrderItems, CartOrder, House, ClientChat, Notification
 # Register your models here.
+from taggit.models import Tag
 
+# Unregister the Tag model from the admin panel
+admin.site.unregister(Tag)
 HouseInlineFormSet = inlineformset_factory(Product, House, fields=('num_bedrooms', 'num_parking_spaces', 'num_bathrooms','num_toilets'), extra=1)
 
 class HouseInline(admin.StackedInline):
@@ -16,14 +19,15 @@ class ProductImagesAdmin(admin.TabularInline):
     model = ProductImages
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = [ 'category_image','title',  'cid']
+    list_display = [ 'category_image','title',  'cid','date']
+    exclude = ('cid','date')
 
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ['product','user','date']
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImagesAdmin, HouseInline]
     list_display = ['product_image','title', 'consultant_price','price',"category"]
-    exclude = ('first_save','updated','sku','pid','status','in_stock','in_wishlist')
+    exclude = ('first_save','date','sku','pid','status','in_stock','in_wishlist')
 
     def get_inline_instances(self, request, obj=None):
         inlines = super().get_inline_instances(request, obj)
@@ -45,6 +49,5 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(ClientChat)
 admin.site.register(Notification)

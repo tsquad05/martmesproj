@@ -62,7 +62,6 @@ class Category(models.Model):
     cid = ShortUUIDField(unique=True, length=10, max_length=45, prefix="", alphabet="abcdefgh12345") #custom uuid field
     title = models.CharField(max_length=100)
     image = CloudinaryField()
-    requires_payment = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:

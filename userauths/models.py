@@ -38,7 +38,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     email_verified = models.BooleanField(default=False)
-    has_paid = models.BooleanField(default=False)
     last_password_reset_request = models.DateTimeField(null=True, blank=True)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'

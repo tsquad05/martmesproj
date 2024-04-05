@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Lagos"
 
 USE_I18N = True
 
@@ -114,7 +114,7 @@ AUTH_USER_MODEL = 'userauths.User'
 SENSITIVE_VARIABLE = "re_XKERd4Zs_7YbCWHpaoPQbeA7YGZMjFgGg"
 
 
-
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 4
 
 
 
@@ -128,8 +128,13 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join(['codesnippet', 'widget', 'dialog','clipboard',]),
     }
 }
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
-
+PIPELINE = {
+    'COMPILERS': ('pipeline.compilers.sass.SASSCompiler',),
+    'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
+}
 
 CLOUD_NAME = 'de3pm0yxc'
 API_KEY ='799178857418374'

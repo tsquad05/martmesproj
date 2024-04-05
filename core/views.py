@@ -326,3 +326,32 @@ def terms(request):
 
 def privacy(request):
     return render(request, "core/privacy.html")
+
+
+
+
+
+
+def error_400(request, exception):
+    return render(request, 'errors/400.html')
+
+def error_401(request, exception):
+    return render(request, 'errors/401.html')
+
+def error_403(request, exception):
+    return render(request, 'errors/403.html')
+
+def error_404(request, exception):
+    return render(request, 'errors/404.html')
+
+def error_405(request, exception):
+    return render(request, 'errors/405.html')
+
+def error_500(request):
+    return render(request, 'errors/500.html')
+
+def error_503(request):
+    return render(request, 'errors/503.html')
+
+def error_504(request):
+    return render(request, 'errors/504.html')

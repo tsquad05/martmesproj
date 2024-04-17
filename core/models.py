@@ -78,7 +78,7 @@ class Category(models.Model):
         self.cid = f"{slug}"
         super().save(*args, **kwargs)
     def get_absolute_url(self):
-        return f'/categories/{self.pid}/'
+        return f'/categories/{self.cid}/'
     def __str__(self):
         return self.title
 

@@ -49,7 +49,7 @@ def send_confirmation_email(request, user):
           <tbody>
             <tr>
               <td valign="top" align="center" style="font-family:Google Sans,Roboto,Helvetica,Arial sans-serif;font-size:36px;font-weight:500;line-height:44px;color:#202124;padding:40px 40px 0px 40px;letter-spacing:-0.31px">
-              <img src="https://helpappafrica.com/static/images/help-img-345-werier34r3-32.jpg" style="border-radius: 15px;" height="200"/>
+              <img src="https://martmesltd.com/static/assets/imgs/martmes-logo-removebg-preview.png" style="border-radius: 15px;" height="100"/>
                 </td>
             </tr>
             
@@ -162,7 +162,7 @@ def reset_password(request, user):
           <tbody>
             <tr>
               <td valign="top" align="center" style="font-family:Google Sans,Roboto,Helvetica,Arial sans-serif;font-size:36px;font-weight:500;line-height:44px;color:#202124;padding:40px 40px 0px 40px;letter-spacing:-0.31px">
-              <img src="https://helpappafrica.com/static/images/help-img-345-werier34r3-32.jpg" style="border-radius: 15px;" height="200"/>
+              <img src="https://martmesltd.com/static/assets/imgs/martmes-logo-removebg-preview.png" style="border-radius: 15px;" height="100"/>
                 </td>
             </tr>
             

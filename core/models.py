@@ -91,9 +91,9 @@ class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
     title = models.CharField(max_length=100, default="Fresh Pear")
-    image = CloudinaryField()
-    image2 = CloudinaryField()
-
+    image = CloudinaryField(blank=True, null=True)
+    image2 = CloudinaryField(blank=True, null=True)
+    video = CloudinaryField('video', blank=True, null=True)
     # description = models.TextField(null=True, blank=True, default="This is the product")
     description = RichTextUploadingField(null=True, blank=True, default="This is the product")
     

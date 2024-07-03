@@ -19,8 +19,8 @@ class ProductImagesAdmin(admin.TabularInline):
     model = ProductImages
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = [ 'category_image','title',  'cid','date']
-    exclude = ('cid','date')
+    list_display = [ 'category_image','title',  'cid','timestamp']
+    exclude = ('cid','timstamp')
 
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ['product','user','date']

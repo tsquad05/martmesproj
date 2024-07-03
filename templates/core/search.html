@@ -33,7 +33,7 @@
             <div class="box-filters box-filters-left"> <span class="body-p2 neutral-medium-dark">Filter by</span>
               
 
-              <div class="dropdown dropdown-sort">
+              {% comment %} <div class="dropdown dropdown-sort">
                 <button class="btn dropdown-toggle" id="dropdownRrice" type="button" data-bs-toggle="dropdown" aria-expanded="false">Price</button>
                 <div class="dropdown-menu dropdown-menu-light dropdown-menu-filter dropdown-menu-category" aria-labelledby="dropdownRrice" style="margin: 0px;">
                   <div class="box-dropdown-filter">
@@ -64,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
             </div>
             <div class="box-sort"> 
           
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="wrapper-overlay"></div>
-        <div class="block-filter-middle block-filter-canvas wrapper-popup">
+        {% comment %} <div class="block-filter-middle block-filter-canvas wrapper-popup">
           <div class="container">
             <div class="box-filters-sidebar"> 
               <h5 class="title-filter">Filter</h5>
@@ -106,7 +106,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
         <div class="container">
          
           <div class="box-list-products box-list-products-4 box-list-products-shop-2">
@@ -114,7 +114,7 @@
             {% for p in products %}
             <div class="product-item">
               <div class="cardProduct wow fadeInUp rounded-2">
-                <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="guza"><img class="imageHover rounded-2" src="{{p.image2.url}}" alt="{{p.title}} image"></a>
+                <div class="cardImage"><a href="{% url "core:listing-detail" p.pid %}"><img class="imageMain rounded-2" src="{{p.image.url}}" alt="guza"><img class="imageHover rounded-2" src="{{p.image2.url|default:p.image.url}}" alt="{{p.title}} image"></a>
                   
                 
                   
@@ -153,7 +153,7 @@
                     </a>
                     
                     {% endif %}
-                    <a class="btn preview-product" href="#">
+                    {% comment %} <a class="btn preview-product" href="#">
                       <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_91_73)">
                           <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
@@ -163,17 +163,35 @@
                             <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
                           </clippath>
                         </defs>
-                      </svg></a>
+                      </svg>
+                    </a> {% endcomment %}
                   </div>
                 </div>
                 <div class="cardInfo"><a href="{% url "core:listing-detail" p.pid %}">
                   <h6 class="text-16-medium cardTitle">{{p.title}}</h6></a>
                   {% if p.category.title == "Real Estate" or p.category.title == "Rentage"  %}
-                  <a class="" style="font-weight: 400; margin-right: 3px;"><i class="fas fa-bed"></i> {{p.house.num_bedrooms}}</a>
-                  <a class="" style="font-weight: 400;  margin-right: 3px;"><i class="fas fa-bath"></i> {{p.house.num_bathrooms}} </a>
-                  <a class="" style="font-weight: 400;"><i class="fas fa-toilet" style="margin-bottom: 10px;"></i> {{p.house.num_toilets}} </a>
+                    {% if p.house.num_bedrooms %}
+                    <a class="" style="font-weight: 400; margin-right: 3px;">
+                        <i class="fas fa-bed"></i> {{ p.house.num_bedrooms }}
+                    </a>
+                    {% endif %}
+                    
+                    {% if p.house.num_bathrooms %}
+                        <a class="" style="font-weight: 400; margin-right: 3px;">
+                            <i class="fas fa-bath"></i> {{ p.house.num_bathrooms }}
+                        </a>
+                    {% endif %}
+                    
+                    {% if p.house.num_toilets %}
+                        <a class="" style="font-weight: 400;">
+                            <i class="fas fa-toilet" style="margin-bottom: 10px;"></i> {{ p.house.num_toilets }}
+                        </a>
+                    {% else %}
+                    <p class="body-p2 cardDesc">{{p.specifications|truncatechars:"30"}}</p>
+                    {% endif %}
+              
                   {% endif %}
-                <p class="body-p2 cardDesc">₦{{p.price|floatformat:0|intcomma}}</p>
+                <p class="body-p2 cardDesc text-black">₦{{p.price|floatformat:0|intcomma}}</p>
                
               </div>
               </div>

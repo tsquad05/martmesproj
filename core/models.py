@@ -13,7 +13,9 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.dateformat import format
-          
+from .utils import extract_frame_from_video
+
+
 cloudinary.config( 
   cloud_name = getattr(settings, 'CLOUD_NAME', None), 
   api_key = getattr(settings, 'API_KEY', None), 
@@ -62,13 +64,14 @@ class Category(models.Model):
     cid = ShortUUIDField(unique=True, length=10, max_length=45, prefix="", alphabet="abcdefgh12345") #custom uuid field
     title = models.CharField(max_length=100)
     image = CloudinaryField()
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         verbose_name_plural = "Categories"
 
     def category_image(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+    
     def save(self, *args, **kwargs):
         # Generate a shorter version of the blog title
         shortened_title = self.title[:40]  # You can adjust the length as needed
@@ -76,7 +79,9 @@ class Category(models.Model):
         slug = slugify(shortened_title)
         # Set the bid to the slug
         self.cid = f"{slug}"
+
         super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return f'/categories/{self.cid}/'
     def __str__(self):
@@ -93,7 +98,7 @@ class Product(models.Model):
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = CloudinaryField(blank=True, null=True)
     image2 = CloudinaryField(blank=True, null=True)
-    video = CloudinaryField('video', blank=True, null=True)
+    video = CloudinaryField('video', resource_type='video', blank=True, null=True)
     # description = models.TextField(null=True, blank=True, default="This is the product")
     description = RichTextUploadingField(null=True, blank=True, default="This is the product")
     
@@ -119,7 +124,8 @@ class Product(models.Model):
         verbose_name_plural = "Products"
 
     def product_image(self):
-        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+        if self.image:
+            return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
     def __str__(self):
         return self.title
     def save(self, *args, **kwargs):
@@ -133,7 +139,12 @@ class Product(models.Model):
             # Concatenate the slug and random integer to create pid
             self.pid = f"{slug}-{random_int}"
             self.first_save = True
-        super().save(*args, **kwargs)
+                    # Extract a frame from the video if no image is provided
+        if not self.image and self.video:
+            extracted_frame_url = extract_frame_from_video(self.video.url)
+            if extracted_frame_url:
+                self.image = extracted_frame_url
+        super(Product, self).save(*args, **kwargs)
     def get_absolute_url(self):
         return f'/listings/listing/{self.pid}/'
     

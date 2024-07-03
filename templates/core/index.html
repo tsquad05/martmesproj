@@ -183,9 +183,18 @@
                     <h6 class="cardTitle" style="margin-bottom: 3px;">{{r.title|title}}</h6>
                     <p class="body-p2 cardDesc fw-600 font-sofia" style="margin-bottom: 8px;">{{r.specifications|truncatechars:"25"}}</p>
                     <h5 class=" cardTitle">₦{{r.price|floatformat:0|intcomma}}</h5></a>
-                    <a class="" ><i class="fas fa-bed"></i> {{r.house.num_bedrooms}} Bedrooms</a>
-                    <a class="" ><i class="fas fa-bath"></i> {{r.house.num_bathrooms}} Bathrooms</a>
-                    <a class="" ><i class="fas fa-toilet"></i> {{r.house.num_toilets}} Toilets</a>
+                    {% if r.house.num_bedrooms %}
+                    <a class=""><i class="fas fa-bed"></i> {{ r.house.num_bedrooms }} Bedrooms</a>
+                    {% endif %}
+                    
+                    {% if r.house.num_bathrooms %}
+                        <a class=""><i class="fas fa-bath"></i> {{ r.house.num_bathrooms }} Bathrooms</a>
+                    {% endif %}
+                    
+                    {% if r.house.num_toilets %}
+                        <a class=""><i class="fas fa-toilet"></i> {{ r.house.num_toilets }} Toilets</a>
+                    {% endif %}
+                    
                   </div>
                 </div>
               </div>

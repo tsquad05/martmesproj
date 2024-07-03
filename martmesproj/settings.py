@@ -114,8 +114,6 @@ AUTH_USER_MODEL = 'userauths.User'
 SENSITIVE_VARIABLE = "re_XKERd4Zs_7YbCWHpaoPQbeA7YGZMjFgGg"
 
 
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 4
-
 
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -140,3 +138,4 @@ CLOUD_NAME = 'de3pm0yxc'
 API_KEY ='799178857418374'
 API_SECRET = 'DnfRY1QDLUMzELSeNyfTxgbMYN8'
 LOGIN_URL = '/sign-in/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
